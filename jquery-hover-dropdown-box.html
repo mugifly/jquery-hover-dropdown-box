@@ -1,0 +1,125 @@
+<html>
+<head>
+	<title>jquery-hover-dropdown-box</title>
+	<!-- Include libraries -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="jquery-hover-dropdown-box.js"></script>
+	<link rel="stylesheet" href="jquery-hover-dropdown-box.css" />
+	<!---->
+	<style type="text/css">
+		body { background-color:	#fefefe; }
+		.btn {
+			display:				inline;
+			padding: 			10px 20px 10px 20px;
+			background-color:	#00c10d;
+			color:				white;
+			font-weight:			bolder;
+			cursor:				pointer;
+		}
+		footer{font-size:small;position:fixed;right:5px;bottom:5px;}
+	</style>
+</head>
+<body>
+	<h1>jquery-hover-dropdown-box</h1>
+
+	<h2>Example - Inline</h2>
+	<div id="example_inline_box">
+
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$('#example_inline_box').hoverDropdownBox({
+				title: 'Follow',
+				items: {
+					"Item A": {
+						color: "#e74c3c",
+						inputType: "text",
+						selected: true
+					},
+					"Item B": {
+						color: "#f1c40f", 
+						inputType: "checkbox",
+						selected: false
+					},
+					"Item C": {
+						color: "#2ecc71",
+						inputType: "checkbox",
+						selected: false
+					},
+					"Item D": {
+						color: "#3498db",
+						inputType: "checkbox",
+						selected: false
+					},
+					"Item E": {
+						color: "#7f8c8d",
+						inputType: "checkbox",
+						selected: true
+					}
+				},
+				footer: {
+					title: "+ New Item",
+					inputPlaceholder: "Input item name",
+					inputType: "text",
+				},
+				onLabelClick: function(key, list){
+					list.checked( !list.checked() );
+					window.alert("onLabelClick: " + key + " - " + list.checked() );
+				},
+				onTextInput: function(value, key, list){
+					window.alert("onTextInput: " + key + " - " + value );
+					if( key == 'footer' ) {
+						console.log(this);
+						this.getHoverDropdownBox().addItem( value, {
+							color: "#34495e",
+							type: "checkbox",
+							selected: true
+						});
+					}
+				},
+				isClickSelect: true
+			});
+		});
+	</script>
+	
+	<h2>Example - Follow button + box</h2>
+	<div id="example_follow_btn" class="btn">Follow</div>
+	<script type="text/javascript">
+		$(function(){
+            $('#example_follow_btn').appendHoverDropdownBox({
+            	title: 'Follow',
+				items: {
+					"List A": {
+						color: "#e74c3c",
+						inputType: "text",
+						selected: true
+					},
+					"List B": {
+						color: "#f1c40f", 
+						inputType: "checkbox",
+						selected: false
+					},
+					"List C": {
+						color: "#2ecc71",
+						inputType: "checkbox",
+						selected: false
+					},
+					"List D": {
+						color: "#3498db",
+						inputType: "checkbox",
+						selected: false
+					},
+				},
+				onLabelClick: function(key, list){
+					list.checked( !list.checked() );
+					window.alert("onLabelClick: " + key + " - " + list.checked() );
+				}
+            });
+		});
+	</script>
+	<footer>
+		<a href="https://github.com/mugifly/jquery-hover-dropdown-box/">jquery-hover-dropdown-box (jquery-hover-dropdown-box.js)</a><br>
+		 - Your feedback is highly appreciated :) 
+	</footer>
+</body>
+</html>

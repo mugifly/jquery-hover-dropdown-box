@@ -1,0 +1,219 @@
+
+.popup_dropdown_box {
+	position:	absolute;
+	display:		block;
+	height: 		220px;
+	width:		200px;
+	background-color: #fefefe;
+	border-bottom:	1px solid #c8c8c8;
+	font-size:	0.8em;
+	font-weight: normal;
+	.box_shadow(0px, 1px, 10px, 1px, rgba(50,50,50,0.1));
+	.border_radius(2px);
+
+	// Header
+	h3 {
+		display: 			table-cell;
+		width:				inherit;
+		padding:				0.3em 0 0.3em 0;
+		margin:				0 0 0 0;
+		background-color:	#c8c8c8;
+		color:				#ffffff;
+		text-align:			center;
+		vertical-align: 		middle;
+		font-weight:			bold;
+		font-size:			10pt;
+
+		.border_top_left_radius(2px);
+		.border_top_right_radius(2px);
+	}
+
+	// List
+	ul {
+		height:	175px;
+		margin:	0 0 0 0;
+		padding: 0 0 0 0;
+		overflow:	auto;
+		overflow-y: auto;
+		overflow-x:	hidden;
+
+		li:after {
+			content: "";
+			clear: both;
+		}
+	}
+
+	// List - scrollbar
+	ul::-webkit-scrollbar {
+		overflow: hidden;
+		width: 6px;
+		background: #fafafa;
+	}
+
+	ul::-webkit-scrollbar:horizontal {
+		height: 1px;
+	}
+
+	ul::-webkit-scrollbar-button {
+		display: none;
+	}
+
+	ul::-webkit-scrollbar-piece {
+		background: #eee;
+	}
+
+	ul::-webkit-scrollbar-piece:start {
+		background: #eee;
+	}
+
+	ul::-webkit-scrollbar-thumb {
+		background: #e0e0e0;
+		.border_radius(1px);
+	}
+
+	ul::-webkit-scrollbar-corner {
+		background: #333;
+	}
+
+	// List - Item
+	.list_item {
+		position:	relative;
+		width:		100%;
+		height:		30px;
+		margin:		5px 0px 5px 0px;
+		list-style-type: none;
+		background-color: #ffffff;
+		color:			#101010;
+		cursor:		pointer;
+		border-bottom:	1px solid #ffffff;
+
+		.color_tag {
+			display: block;
+			position: relative;
+			float:	left;
+			height: inherit;
+			width:	5%;
+			top:		0px;
+			left:	0px;
+			.user_select(none);
+		}
+
+		.label {
+			display:			table-cell;
+			position:		absolute;
+			height:			1em;
+			width:			100%;
+			margin-left:		15%;
+			vertical-align: middle;
+			line-height:		2.5em;
+			.user_select(none);
+		}
+
+		.checkbox {
+			display:			block;
+			position:		absolute;
+			height:			100%;
+			width:			20px;
+			float:			right;
+			top:				0px;
+			right:			5%;
+			margin:			auto;
+			padding:			auto;
+		}
+
+		.textbox {
+			position:		absolute;
+			display:			table-cell;
+			height:			inherit;
+			width:			60%;
+			margin-left: 	13%;
+			top:				0px;
+			vertical-align:	middle;
+			z-index:			40;
+		}
+	}
+
+	.list_item:hover {
+		//.box_shadow_inset(0px, 0px, 1px, 1px, rgba(150,150,150, 0.1));
+		border-bottom:	1px solid #eeeeee;
+		transition: all 0.1s linear;
+	}
+
+	// Footer
+	.list_item.footer {
+		display: block;
+		position: absolute;
+		color:	#71a7c2;
+		bottom: 0px;
+		padding-top:	5px;
+		border-top:	1px solid #eeeeee;
+
+		.textbox {
+			margin-top: 3px;
+		}
+	}
+}
+
+.popup_dropdown_box_with_footer > ul {
+	height:	145px !important;
+}
+
+.popup_dropdown_box.popup_dropdown_box_inline {
+	position:	relative !important;
+}
+
+.popup_dropdown_box.popup_dropdown_box_hover {
+	position:	absolute !important;
+	transition: opacity 0.5s linear 0;
+	opacity: 1.0;
+		-webkit-opacity: 1.0;
+}
+
+.popup_dropdown_box_hide {
+	opacity: 0.0 !important!;
+		-webkit-opacity: 0.0 !important;
+}
+
+.box_shadow (@h_offset, @v_offset, @blur, @exp, @color){
+	box-shadow: @h_offset @v_offset @blur @exp @color;
+		-moz-box-shadow: @h_offset @v_offset @blur @exp @color;
+		-webkit-box-shadow: @h_offset @v_offset @blur @exp @color;
+		-o-box-shadow: @h_offset @v_offset @blur @exp @color;
+		-ms-box-shadow: @h_offset @v_offset @blur @exp @color;
+}
+
+.box_shadow_inset (@h_offset, @v_offset, @blur, @exp, @color){
+	box-shadow: @h_offset @v_offset @blur @exp @color inset;
+		-moz-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+		-webkit-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+		-o-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+		-ms-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+}
+
+.border_radius (@rad:0px){
+	border-radius: 				@rad;
+		-webkit-border-radius: 	@rad;
+		-moz-border-radius: 		@rad;
+		-o-border-radius: 		@rad;
+		-ms-border-radius: 		@rad;
+}
+
+.border_top_left_radius (@rad:0px){
+	border-top-left-radius: @rad;
+		-webkit-border-top-left-radius: 	@rad;
+		-moz-border-radius-topleft: 		@rad;
+}
+
+.border_top_right_radius (@rad:0px){
+	border-top-right-radius: @rad;
+		-webkit-border-top-right-radius: 	@rad;
+		-moz-border-radius-topright: 		@rad;
+}
+
+.user_select(@value){
+	user-select: @value;
+		-webkit-user-select: @value;
+		-khtml-user-select: @value;
+		-moz-user-select: @value;
+		-ms-user-select: @value;
+}
