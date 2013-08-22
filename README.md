@@ -25,6 +25,8 @@ You can send requests and bug reports as [Issues on GitHub](https://github.com/m
     * Append to a button, as hover.
 * etc...
 
+Examples: http://mugifly.github.io/jquery-hover-dropdown-box
+
 ## License and author
 
 Copyright (c) 2013 Masanori Ohgita (http://ohgita.info/). 
