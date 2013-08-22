@@ -45,7 +45,7 @@
   -moz-border-radius-topright: 2px;
 }
 .popup_dropdown_box ul {
-  height: 175px;
+  height: 180px;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   overflow: auto;
@@ -131,7 +131,6 @@
   vertical-align: middle;
   border: 2px solid #e0e0e0;
   border-radius: 2px;
-  z-index: 40;
   user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -140,8 +139,9 @@
 }
 .popup_dropdown_box .list_item .checkbox_checked:after {
   /*
-				Thankyou:
+				Solution:
 				http://webitect.net/design/webdesign/creating-fancy-bullet-points-with-pure-css3/
+				Thankyou.
 			*/
 
   display: table-cell;
@@ -161,10 +161,11 @@
 .popup_dropdown_box .list_item .textbox {
   position: absolute;
   display: table-cell;
-  height: inherit;
+  height: auto;
   width: 60%;
   margin-left: 13%;
   top: 0px;
+  bottom: 0px;
   vertical-align: middle;
   z-index: 40;
 }
@@ -195,7 +196,8 @@
 }
 .popup_dropdown_box.popup_dropdown_box_hover {
   position: absolute !important;
-  transition: all 0.3s linear;
+  transition: opacity 0.3s linear;
+  z-index: 10000;
   opacity: 1;
   -webkit-opacity: 1;
   -moz-opacity: 1;
