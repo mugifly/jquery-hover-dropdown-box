@@ -1,7 +1,7 @@
 /**
  * jquery-hover-dropdown-box	- Stylesheet
  * You can convert .less file to .css file, by using "lessc" (http://lesscss.org/).
-**/
+ **/
 .popup_dropdown_box {
   position: absolute;
   display: block;
@@ -143,9 +143,9 @@
 }
 .popup_dropdown_box .list_item .checkbox_checked:after {
   /*
-				Thankyou:;
+				Thankyou:
 				http://webitect.net/design/webdesign/creating-fancy-bullet-points-with-pure-css3/
-			*/
+				*/
 
   position: absolute;
   display: table-cell;
@@ -159,6 +159,7 @@
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
 }
 .popup_dropdown_box .list_item .textbox {
   position: absolute;
@@ -197,11 +198,17 @@
 }
 .popup_dropdown_box.popup_dropdown_box_hover {
   position: absolute !important;
-  transition: opacity 0.3s linear 0;
-  opacity: 1.0;
-  -webkit-opacity: 1.0;
+  transition: all 0.3s linear;
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  -o-opacity: 1;
+  -ms-opacity: 1;
 }
-.popup_dropdown_box_hide {
-  opacity: 0.0 !important!;
-  -webkit-opacity: 0.0 !important;
+.popup_dropdown_box.popup_dropdown_box_hide {
+  opacity: 0 !important;
+  -webkit-opacity: 0 !important;
+  -moz-opacity: 0 !important;
+  -o-opacity: 0 !important;
+  -ms-opacity: 0 !important;
 }

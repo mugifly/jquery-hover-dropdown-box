@@ -1,21 +1,21 @@
 /**
  * jquery-hover-dropdown-box	- Stylesheet
  * You can convert .less file to .css file, by using "lessc" (http://lesscss.org/).
-**/
+ **/
 
-.popup_dropdown_box {
-	position:	absolute;
-	display:		block;
-	height: 		220px;
-	width:		200px;
-	background-color: #fefefe;
-	border-bottom:	1px solid #c8c8c8;
-	border-left:		1px solid #e0e0e0;
-	border-right:	1px solid #e0e0e0;
-	font-size:		0.8em;
-	font-weight: 	normal;
-	.box_shadow(0px, 1px, 10px, 1px, rgba(50,50,50,0.1));
-	.border_radius(2px);
+ .popup_dropdown_box {
+ 	position:	absolute;
+ 	display:		block;
+ 	height: 		220px;
+ 	width:		200px;
+ 	background-color: #fefefe;
+ 	border-bottom:	1px solid #c8c8c8;
+ 	border-left:		1px solid #e0e0e0;
+ 	border-right:	1px solid #e0e0e0;
+ 	font-size:		0.8em;
+ 	font-weight: 	normal;
+ 	.box_shadow(0px, 1px, 10px, 1px, rgba(50,50,50,0.1));
+ 	.border_radius(2px);
 
 	// Header
 	h3 {
@@ -135,37 +135,35 @@
 			/*
 				Thankyou:
 				http://webitect.net/design/webdesign/creating-fancy-bullet-points-with-pure-css3/
-			*/
-			position:	absolute;
-			display:		table-cell;
-			left:		10px;
-			height:		18px;
+				*/
+				position:	absolute;
+				display:		table-cell;
+				left:		10px;
+				height:		18px;
 
-			content:		"\00a0";
-			border:		solid #303030;
-			border-width: 0 2px 2px 0;
+				content:		"\00a0";
+				border:		solid #303030;
+				border-width: 0 2px 2px 0;
 
-			vertical-align: middle;
+				vertical-align: middle;
 
-			.transform_rotate(45deg)
+				.transform_rotate(45deg)
+			}
+
+			.textbox {
+				position:		absolute;
+				display:			table-cell;
+				height:			inherit;
+				width:			60%;
+				margin-left: 	13%;
+				top:				0px;
+				vertical-align:	middle;
+				z-index:			40;
+			}
 		}
 
-		.textbox {
-			position:		absolute;
-			display:			table-cell;
-			height:			inherit;
-			width:			60%;
-			margin-left: 	13%;
-			top:				0px;
-			vertical-align:	middle;
-			z-index:			40;
-		}
-	}
-
-	.list_item:hover {
-		//font-weight: bolder;
+		.list_item:hover {
 		.box_shadow(0px, 0px, 0px, 1px, rgba(150,150,150, 0.2));
-		//border-bottom:	1px solid #e0e0e0;
 		transition: all 0.1s linear;
 	}
 
@@ -194,64 +192,70 @@
 
 .popup_dropdown_box.popup_dropdown_box_hover {
 	position:	absolute !important;
-	transition: opacity 0.3s linear 0;
-	opacity: 1.0;
-		-webkit-opacity: 1.0;
+	transition: all 0.3s linear;
+	.opacity(1.0);
 }
 
-.popup_dropdown_box_hide {
-	opacity: 0.0 !important!;
-		-webkit-opacity: 0.0 !important;
+.popup_dropdown_box.popup_dropdown_box_hide {
+	.opacity(0.0) !important;
 }
 
 .box_shadow (@h_offset, @v_offset, @blur, @exp, @color){
 	box-shadow: @h_offset @v_offset @blur @exp @color;
-		-moz-box-shadow: @h_offset @v_offset @blur @exp @color;
-		-webkit-box-shadow: @h_offset @v_offset @blur @exp @color;
-		-o-box-shadow: @h_offset @v_offset @blur @exp @color;
-		-ms-box-shadow: @h_offset @v_offset @blur @exp @color;
+	-moz-box-shadow: @h_offset @v_offset @blur @exp @color;
+	-webkit-box-shadow: @h_offset @v_offset @blur @exp @color;
+	-o-box-shadow: @h_offset @v_offset @blur @exp @color;
+	-ms-box-shadow: @h_offset @v_offset @blur @exp @color;
 }
 
 .box_shadow_inset (@h_offset, @v_offset, @blur, @exp, @color){
 	box-shadow: @h_offset @v_offset @blur @exp @color inset;
-		-moz-box-shadow: @h_offset @v_offset @blur @exp @color inset;
-		-webkit-box-shadow: @h_offset @v_offset @blur @exp @color inset;
-		-o-box-shadow: @h_offset @v_offset @blur @exp @color inset;
-		-ms-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+	-moz-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+	-webkit-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+	-o-box-shadow: @h_offset @v_offset @blur @exp @color inset;
+	-ms-box-shadow: @h_offset @v_offset @blur @exp @color inset;
 }
 
 .border_radius (@rad:0px){
 	border-radius: 				@rad;
-		-webkit-border-radius: 	@rad;
-		-moz-border-radius: 		@rad;
-		-o-border-radius: 		@rad;
-		-ms-border-radius: 		@rad;
+	-webkit-border-radius: 	@rad;
+	-moz-border-radius: 		@rad;
+	-o-border-radius: 		@rad;
+	-ms-border-radius: 		@rad;
 }
 
 .border_top_left_radius (@rad:0px){
 	border-top-left-radius: @rad;
-		-webkit-border-top-left-radius: 	@rad;
-		-moz-border-radius-topleft: 		@rad;
+	-webkit-border-top-left-radius: 	@rad;
+	-moz-border-radius-topleft: 		@rad;
 }
 
 .border_top_right_radius (@rad:0px){
 	border-top-right-radius: @rad;
-		-webkit-border-top-right-radius: 	@rad;
-		-moz-border-radius-topright: 		@rad;
+	-webkit-border-top-right-radius: 	@rad;
+	-moz-border-radius-topright: 		@rad;
 }
 
 .user_select(@value){
 	user-select: @value;
-		-webkit-user-select: @value;
-		-khtml-user-select: @value;
-		-moz-user-select: @value;
-		-ms-user-select: @value;
+	-webkit-user-select: @value;
+	-khtml-user-select: @value;
+	-moz-user-select: @value;
+	-ms-user-select: @value;
 }
 
-.transform_rotate(@deg){
+.transform_rotate(@d){
 	transform: rotate(@d);
-		-webkit-transform: rotate(@d);
-		-moz-transform: rotate(@d);
-		-o-transform: rotate(@d);
-		-ms-transform: rotate(@d);
+	-webkit-transform: rotate(@d);
+	-moz-transform: rotate(@d);
+	-o-transform: rotate(@d);
+	-ms-transform: rotate(@d);
+}
+
+.opacity(@val){
+	opacity:	 @val;
+		-webkit-opacity: @val;
+		-moz-opacity: @val;
+		-o-opacity: @val;
+		-ms-opacity: @val;
 }
