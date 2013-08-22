@@ -20,9 +20,8 @@
 		pre { padding: 15px 10px 15px 10px; background-color: #dfdfdf; }
 		footer { font-size:small;position:fixed;right:5px;bottom:5px; }
 		.btn { display: relative; padding: 10px 20px 10px 20px;
-			margin-left:700px;
-			background-color: #00c10d; color: white; border-bottom: 2px solid #00a30a;
-			font-weight: bolder; cursor: pointer; }
+			background-color: #00c10d; color: white; cursor: pointer;
+			border-bottom: 2px solid #00a30a; font-weight: bolder; }
 	</style>
 </head>
 <body>
@@ -46,7 +45,8 @@
 					"Item A": {
 						color: "#e74c3c",
 						inputType: "text",
-						inputSelected: true
+						inputSelected: true,
+						inputPlaceholder: "Example input"
 					},
 					"Item B": {
 						color: "#f1c40f", 
@@ -130,12 +130,12 @@
 						inputSelected: false
 					},
 				},
-				onClick: function(key, list){
-					window.alert("onClick: " + key + " - " + list.checked() );
+				onClick: function(key, item, dom){
+					window.alert("onClick: " + key + " - " + item.checked() );
 				},
-				onLabelClick: function(key, list){
-					list.checked( !list.checked() );
-					window.alert("onLabelClick: " + key + " - " + list.checked() );
+				onLabelClick: function(key, item, dom){
+					item.checked( !item.checked() );
+					window.alert("onLabelClick: " + key + " - " + item.checked() );
 				}
 			});
 		});
@@ -144,20 +144,20 @@
 
 		<hr>
 
-		<h2>METHODS</h2>
+		<a name="methods"><h2>METHODS</h2></a>
 
-		<h3>$('#foo_div').hoverDropdownBox ( options )</h3>
+		<h3>$('#foo_div').hoverDropdownBox ( [options] )</h3>
 
 		Append to such as div element, as inline.
 
-		<h3>$('#foo_btn').appendHoverDropdownBox ( options )</h3>
+		<h3>$('#foo_btn').appendHoverDropdownBox ( [options] )</h3>
 
 		Append to such as buttons, as hover.
 
 
 		<hr>
 
-		<h2>OPTIONS</h2>
+		<a name="options"><h2>OPTIONS</h2></a>
 
 		You can also use these options with aforesaid methods.
 
@@ -202,6 +202,7 @@
 			This option is usable when using 'inputType' option with 'checkbox'.
 
 			<h4>'inputPlaceholder'</h4>
+
 			This option is usable when using 'inputType' option with 'text'.
 
 		</section>
@@ -227,6 +228,7 @@
 			Append a input element to an item.
 
 			<ul>
+				<li>null (default)</li>
 				<li>text</li>
 				<li>checkbox</li>
 			</ul>
@@ -236,11 +238,12 @@
 			This option is usable when using 'inputType' option with 'checkbox'.
 
 			<h4>'inputPlaceholder'</h4>
+
 			This option is usable when using 'inputType' option with 'text'.
 
 		</section>
 
-		<h3> 'onClick' - function (  key, item, dom )</h3>
+		<a name="methods_onclick"><h3>'onClick' - function (  key, item, dom )</h3></a>
 		<p>Event handler for when an item (with label and others (eg: checkbox)) has clicked.</p>
 		<p>
 			Example of use:
@@ -249,19 +252,45 @@
 		window.alert("onClick: " + key );
 	}</pre>
 		</p>
-		<h3> 'onLabelClick' - function ( key, item )</h3>
+		<p>
+			[Note] This 'item' parameter is an object.<br/>
+			&nbsp;Also, you can use the following methods with 'item' object: <br/>
+
+			<section>
+
+				<h4>item.checked ( [value] )</h4>
+
+				<p>Get / Set state of the checkbox to an item. ('value' : true / false)<br/>
+				[Note] This method is usable when 'inputType' with 'checkbox' in this item.</p>
+
+				<h4>item.getInputObject ( [value] )</h4>
+
+				<p>Get the input element from an item.</p>
+
+				<h4>item.value ( [value] )</h4>
+
+				<p>Get / Set value of the input element to an item.</p>
+
+			</section>
+		</p>
+
+		<a name="methods_onlabelclick"><h3> 'onLabelClick' - function ( key, item, dom )</h3></a>
 
 		<p>Event handler for when the label of an item has clicked.</p>
 		<p>Example of use:
 			<pre>
 	onLabelClick: function(key, item){
 		// When the label of item has clicked, switch checked state of a checkbox.
-		list.checked( !list.checked() );
-		window.alert("onLabelClick: " + key + " - " + list.checked() );
+		item.checked( !item.checked() ); // You can use 'checked' method with an item object.
+		window.alert("onLabelClick: " + key + " - " + item.checked() );
 	}</pre>
 		</p>
+		<p>
+			[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
+			&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
+		</p>
 
-		<h3> 'onTextInput' - function ( input_value, key, item, dom  )</h3>
+		<a name="methods_ontextinput"><h3> 'onTextInput' - function ( input_value, key, item, dom  )</h3></a>
 
 		<p>Event handler for when the text-input of an item has input completed.</p>
 		<p>Example of use:
@@ -269,6 +298,10 @@
 	onTextInput: function(input_value, key, item, dom){
 		window.alert("onTextInput: + key + " = " + input_value);
 	}</pre>
+		</p>
+		<p>
+			[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
+			&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
 		</p>
 
 	</article>
