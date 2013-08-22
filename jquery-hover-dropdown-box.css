@@ -1,3 +1,7 @@
+/**
+ * jquery-hover-dropdown-box	- Stylesheet
+ * You can convert .less file to .css file, by using "lessc" (http://lesscss.org/).
+**/
 .popup_dropdown_box {
   position: absolute;
   display: block;
