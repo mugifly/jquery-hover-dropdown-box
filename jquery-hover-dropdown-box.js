@@ -268,14 +268,39 @@
 	hoverDropdownBoxItem.prototype.generateInputObject_ = function( item_options ){
 		var input_type = item_options.inputType;
 
-		// Checkbox
+		// Checkbox (Checkbox like div)
 		if( input_type == "checkbox" ){
-			var $check = jQuery('<input/>');
+			/*var $check = jQuery('<input/>');
 			$check.attr('type', 'checkbox');
 			$check.addClass('checkbox');
 			if(item_options.inputSelected != null && item_options.inputSelected){
 				$check.prop('checked', true);
+			}*/
+			var $check = jQuery('<div/>');
+			$check.addClass('checkbox');
+			if(item_options.inputSelected != null && item_options.inputSelected){
+				$check.data('isChecked', true);
+			} else {
+				$check.data('isChecked', false);
 			}
+
+			$check.click(function(evt){
+				var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
+				var item_key =  $(this).parents('.list_item').data('hoverDropdownBoxBoxItemKey');
+				var item_obj;
+				if(item_key == 'footer'){
+					item_obj = hoverDropdownBoxs[id].footerItem;
+				} else {
+					item_obj = hoverDropdownBoxs[id].items[item_key];
+				}
+
+				if($check.data('isChecked')){
+					item_obj.checked( false );
+				} else {
+					item_obj.checked( true );
+				}
+			});
+
 			this.dom.append($check);
 			this.innerInputObject = $check;
 		}
@@ -358,11 +383,19 @@
 	hoverDropdownBoxItem.prototype.checked = function( value ){
 		if(this.innerInputObject){
 			if(value != null && value == true){
-				$(this.innerInputObject[0]).prop('checked', true);
+				//$(this.innerInputObject[0]).prop('checked', true);
+				$(this.innerInputObject[0]).data('isChecked', true);
+				// Drawing custom checkbox
+				$(this.innerInputObject[0]).addClass('checkbox_checked');
 			} else if(value != null && value == false){
-				$(this.innerInputObject[0]).prop('checked', null);
+				//$(this.innerInputObject[0]).prop('checked', null);
+				$(this.innerInputObject[0]).data('isChecked', false);
+				// Drawing custom checkbox
+				$(this.innerInputObject[0]).removeClass('checkbox_checked');
 			}
-			return $(this.innerInputObject[0]).is(':checked');
+
+			//return $(this.innerInputObject[0]).is(':checked');
+			return $(this.innerInputObject[0]).data('isChecked');
 		}
 	};
 
