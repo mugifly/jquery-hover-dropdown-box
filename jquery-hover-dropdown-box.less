@@ -40,8 +40,8 @@
 		margin:	0 0 0 0;
 		padding: 0 0 0 0;
 		overflow:	auto;
-		overflow-y: auto;
-		overflow-x:	hidden;
+		//overflow-y: auto;
+		//overflow-x:	hidden;
 
 		li:after {
 			content: "";
@@ -83,16 +83,15 @@
 
 	// List - Item
 	.list_item {
-		overflow:	hidden;
 		position:	relative;
 		width:		100%;
 		height:		30px;
 		margin:		5px 0px 5px 0px;
-		list-style-type: none;
-		background-color: #ffffff;
-		color:			#101010;
+		overflow:	hidden;
+		color:		#101010;
 		cursor:		pointer;
-		//border-bottom:	1px solid #ffffff;
+		list-style-type:		none;
+		background-color:	#ffffff;
 
 		.color_tag {
 			display: block;
@@ -117,17 +116,16 @@
 		}
 
 		.checkbox {
-			position:		absolute;
 			display:			table-cell;
-			top:				1px;
-			right:			5px;
+			position:		absolute;
 			height:			24px;
 			width:			24px;
+			top:				1px;
+			right:			5px;
+			vertical-align:	middle;
 			border:			2px solid #e0e0e0;
 			border-radius: 	2px;
-			vertical-align:	middle;
 			z-index:			40;
-			margin:			auto;
 			.user_select(none);
 		}
 
@@ -135,34 +133,34 @@
 			/*
 				Thankyou:
 				http://webitect.net/design/webdesign/creating-fancy-bullet-points-with-pure-css3/
-				*/
-				position:	absolute;
-				display:		table-cell;
-				left:		10px;
-				height:		18px;
+			*/
+			display:		table-cell;
+			position:	absolute;
+			left:		10px;
+			height:		18px;
 
-				content:		"\00a0";
-				border:		solid #303030;
-				border-width: 0 2px 2px 0;
+			content:		"\00a0";
+			border:		solid #303030;
+			border-width: 0 2px 2px 0;
 
-				vertical-align: middle;
+			vertical-align: middle;
 
-				.transform_rotate(45deg)
-			}
-
-			.textbox {
-				position:		absolute;
-				display:			table-cell;
-				height:			inherit;
-				width:			60%;
-				margin-left: 	13%;
-				top:				0px;
-				vertical-align:	middle;
-				z-index:			40;
-			}
+			.transform_rotate(45deg)
 		}
 
-		.list_item:hover {
+		.textbox {
+			position:		absolute;
+			display:			table-cell;
+			height:			inherit;
+			width:			60%;
+			margin-left: 	13%;
+			top:				0px;
+			vertical-align:	middle;
+			z-index:			40;
+		}
+	}
+
+	.list_item:hover {
 		.box_shadow(0px, 0px, 0px, 1px, rgba(150,150,150, 0.2));
 		transition: all 0.1s linear;
 	}
