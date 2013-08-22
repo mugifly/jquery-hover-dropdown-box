@@ -3,12 +3,38 @@
  * You can convert .less file to .css file, by using "lessc" (http://lesscss.org/).
  **/
 
+// --------------------
+
+@link_color: #71a7c2;
+
+// Box
+@box_color_background: #fefefe;
+
+// Header
+@header_color_background: #767676; // WCAG 2.0 AA
+@header_color_font: #ffffff;
+
+// List
+@list_item_color_background: #ffffff;
+@list_item_color_font: #101010;
+@list_item_checkbox_color_border: #e0e0e0;
+@list_item_checkbox_color_checkmark: #303030;
+
+// Footer
+@footer_color_border: #eeeeee;
+
+// Only Webkit
+@scroll_bar_color_background: #fafafa;
+@scroll_bar_color_thumb: #e0e0e0;
+
+// --------------------
+
  .popup_dropdown_box {
  	position:	absolute;
  	display:		block;
  	height: 		220px;
  	width:		200px;
- 	background-color: #fefefe;
+ 	background-color: @box_color_background;
  	border-bottom:	1px solid #c8c8c8;
  	border-left:		1px solid #e0e0e0;
  	border-right:	1px solid #e0e0e0;
@@ -23,8 +49,8 @@
 		width:				inherit;
 		padding:				0.3em 0 0.3em 0;
 		margin:				0 0 0 0;
-		background-color:	#767676; /* WCAG 2.0 AA */
-		color:				#ffffff;
+		background-color:	@header_color_background;
+		color:				@header_color_font;
 		text-align:			center;
 		vertical-align: 		middle;
 		font-weight:			bold;
@@ -51,7 +77,7 @@
 	ul::-webkit-scrollbar {
 		overflow: hidden;
 		width: 6px;
-		background: #fafafa;
+		background: @scroll_bar_color_background;
 	}
 
 	ul::-webkit-scrollbar:horizontal {
@@ -71,7 +97,7 @@
 	}
 
 	ul::-webkit-scrollbar-thumb {
-		background: #e0e0e0;
+		background: @scroll_bar_color_thumb;
 		.border_radius(1px);
 	}
 
@@ -86,19 +112,19 @@
 		height:		30px;
 		margin:		5px 0px 5px 0px;
 		overflow:	hidden;
-		color:		#101010;
+		color:		@list_item_color_font;
 		cursor:		pointer;
 		list-style-type:		none;
-		background-color:	#ffffff;
+		background-color:	@list_item_color_background;
 
 		.color_tag {
-			display: block;
-			position: relative;
-			float:	left;
-			height: inherit;
-			width:	5%;
-			top:		0px;
-			left:	0px;
+			display:		block;
+			position:	relative;
+			float:		left;
+			height:		inherit;
+			width:		5%;
+			top:			0px;
+			left:		0px;
 			.user_select(none);
 		}
 
@@ -108,7 +134,7 @@
 			height:			1em;
 			width:			100%;
 			margin-left:		15%;
-			vertical-align: middle;
+			vertical-align:	middle;
 			line-height:		2.5em;
 			.user_select(none);
 		}
@@ -121,7 +147,7 @@
 			top:				1px;
 			right:			5px;
 			vertical-align:	middle;
-			border:			2px solid #e0e0e0;
+			border:			2px solid @list_item_checkbox_color_border;
 			border-radius: 	2px;
 			.user_select(none);
 		}
@@ -138,7 +164,7 @@
 			height:		18px;
 
 			content:		"\00a0";
-			border:		solid #303030;
+			border:		solid @list_item_checkbox_color_checkmark;
 			border-width: 0 2px 2px 0;
 
 			vertical-align: middle;
@@ -151,11 +177,32 @@
 			display:			table-cell;
 			height:			auto;
 			width:			60%;
-			margin-left: 	13%;
+			margin-left: 	20%;
 			top:				0px;
 			bottom:			0px;
 			vertical-align:	middle;
-			z-index:			40;
+		}
+
+		.input_action {
+			display:			table-cell;
+			position:		absolute;
+			width:			1em;
+			top: 			0px;
+			bottom:			0px;
+			vertical-align: middle;
+			line-height:		2.5em;
+			color:			@link_color;
+			.user_select(none);
+		}
+
+		.input_action.input_action_left {
+			margin-left:		0px;
+			left:			10%;
+		}
+
+		.input_action.input_action_right {
+			right:			5%;
+			margin-left:		5%;
 		}
 	}
 
@@ -168,13 +215,18 @@
 	.list_item.footer {
 		display: block;
 		position: absolute;
-		color:	#71a7c2;
-		bottom: 0px;
-		padding-top:	5px;
-		border-top:	1px solid #eeeeee;
+		color:	@link_color;
+		bottom: -1px;
+		padding-top:	3px;
+		padding-bottom: 1px;
+		border-top:	1px solid @footer_color_border;
 
 		.textbox {
 			margin-top: 3px;
+		}
+
+		.input_action {
+			top: 2px;
 		}
 	}
 }
