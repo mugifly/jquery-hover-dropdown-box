@@ -30,8 +30,6 @@
   padding: 0.3em 0 0.3em 0;
   margin: 0 0 0 0;
   background-color: #767676;
-  /* WCAG 2.0 AA */
-
   color: #ffffff;
   text-align: center;
   vertical-align: middle;
@@ -163,11 +161,33 @@
   display: table-cell;
   height: auto;
   width: 60%;
-  margin-left: 13%;
+  margin-left: 20%;
   top: 0px;
   bottom: 0px;
   vertical-align: middle;
-  z-index: 40;
+}
+.popup_dropdown_box .list_item .input_action {
+  display: table-cell;
+  position: absolute;
+  width: 1em;
+  top: 0px;
+  bottom: 0px;
+  vertical-align: middle;
+  line-height: 2.5em;
+  color: #71a7c2;
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.popup_dropdown_box .list_item .input_action.input_action_left {
+  margin-left: 0px;
+  left: 10%;
+}
+.popup_dropdown_box .list_item .input_action.input_action_right {
+  right: 5%;
+  margin-left: 5%;
 }
 .popup_dropdown_box .list_item:hover {
   box-shadow: 0px 0px 0px 1px rgba(150, 150, 150, 0.2);
@@ -181,12 +201,16 @@
   display: block;
   position: absolute;
   color: #71a7c2;
-  bottom: 0px;
-  padding-top: 5px;
+  bottom: -1px;
+  padding-top: 3px;
+  padding-bottom: 1px;
   border-top: 1px solid #eeeeee;
 }
 .popup_dropdown_box .list_item.footer .textbox {
   margin-top: 3px;
+}
+.popup_dropdown_box .list_item.footer .input_action {
+  top: 2px;
 }
 .popup_dropdown_box_with_footer > ul {
   height: 150px !important;
