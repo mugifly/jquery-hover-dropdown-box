@@ -124,9 +124,7 @@
 			this.items[key] = new hoverDropdownBoxItem( this, $li, key );
 			
 			// Input object
-			if(this.options.items[key].inputType != null){
-				this.items[key].generateInputObject_( this.options.items[key] );
-			}
+			// Insert later
 		}
 
 		// Footer
@@ -154,6 +152,14 @@
 				this.footerItem.generateInputObject_( this.options.footer );
 			}
 		}
+
+		// Input object
+		for ( key in this.options.items ){
+			if(this.options.items[key].inputType != null){
+				this.items[key].generateInputObject_( this.options.items[key] );
+			}
+		}
+
 	};
 
 	// Append to parent dom
