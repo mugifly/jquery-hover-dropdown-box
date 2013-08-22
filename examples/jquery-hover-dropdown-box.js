@@ -179,18 +179,27 @@
 					window.clearTimeout( $parentDOM.data('timeout') );
 				}
 
-				// Show
-				hoverDropdownBoxs[id].isVisible = true;
-				$dom.css('left', $parentDOM.offset().left );
-				$dom.css('top', $parentDOM.offset().top + 30 );
-				if(parseInt($(window).height()) < parseInt($dom.offset().top + $dom.height())){
-					$dom.css('top', $parentDOM.offset().top + $parentDOM.height() - $dom.height() );
-				}
-				if(parseInt($(window).width()) < parseInt($dom.offset().left + $dom.width())){
-					$dom.css('top', $parentDOM.offset().left - $dom.width() );
-				}
+				// Show and adjust with parent element
+				
 				$dom.show();
+				hoverDropdownBoxs[id].isVisible = true;
+				var top_margin = 30;
+				if(parseInt($(window).height()) <=  parseInt($parentDOM.offset().top - $(window).scrollTop()) + top_margin + parseInt($dom.height()) ){
+					// Display to top of parent
+					$dom.css('top', $parentDOM.offset().top + $parentDOM.height() - $dom.height() );
+				} else {
+					// Display to bottom of parent
+					$dom.css('top', $parentDOM.offset().top + top_margin );
+				}
+				if(parseInt($(window).width()) < parseInt($parentDOM.offset().left) + parseInt($dom.width()) ){
+					// Display to left of parent
+					$dom.css('left', $parentDOM.offset().left - ($dom.width() / 2) );
+				} else {
+					// Display to right of parent
+					$dom.css('left', $parentDOM.offset().left );
+				}
 				$dom.removeClass('popup_dropdown_box_hide');
+				
 				// Bind mouse-out event
 				var t = window.setTimeout(function(){
 					$dom.bind('mouseout', function(evt){
@@ -242,8 +251,8 @@
 		);
 		
 		// Hide now
-		$(this.dom).hide();
 		$(this.dom).addClass('popup_dropdown_box_hide');
+		$(this.dom).hide();
 		this.isVisible = false;
 	};
 
