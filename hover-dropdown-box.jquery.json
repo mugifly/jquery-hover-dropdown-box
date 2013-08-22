@@ -1,0 +1,25 @@
+{
+	"name": "hover-dropdown-box",
+	"title": "jquery-hover-dropdown-box",
+	"version": "1.0.0",
+	"author": {
+		"name": "Masanori Ohgita",
+		"url": "https://github.com/mugifly"
+	},
+	"dependencies": {
+		"jquery": ">=1.7.2"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/mugifly/jquery-hover-dropdown-box/blob/master/LICENSE"
+		}
+	],
+	"files": ["jquery-hover-dropdown-box.js"],
+	"description": "The jQuery plugin that provides interactive drop-down list box. Such as dropdown includes checkbox, text-input, etc...",
+	"keywords": ["list","dropdown","input", "combo-box", "custom", "checkbox"],
+	"homepage": "http://mugifly.github.io/jquery-hover-dropdown-box/",
+	"demo": "http://mugifly.github.io/jquery-hover-dropdown-box/examples/jquery-hover-dropdown-box.html",
+	"docs": "https://github.com/mugifly/jquery-hover-dropdown-box/blob/master/README.md",
+	"bugs": "https://github.com/mugifly/jquery-hover-dropdown-box/issues"
+}
