@@ -175,7 +175,6 @@
 
 				// Show
 				hoverDropdownBoxs[id].isVisible = true;
-				$dom.show();
 				$dom.css('left', $parentDOM.offset().left );
 				$dom.css('top', $parentDOM.offset().top + 30 );
 				if(parseInt($(window).height()) < parseInt($dom.offset().top + $dom.height())){
@@ -184,6 +183,7 @@
 				if(parseInt($(window).width()) < parseInt($dom.offset().left + $dom.width())){
 					$dom.css('top', $parentDOM.offset().left - $dom.width() );
 				}
+				$dom.show();
 				$dom.removeClass('popup_dropdown_box_hide');
 				// Bind mouse-out event
 				var t = window.setTimeout(function(){
