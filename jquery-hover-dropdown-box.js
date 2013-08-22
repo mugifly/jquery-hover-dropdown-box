@@ -63,7 +63,11 @@
 
 		// Generate of header
 		var $header = jQuery('<h3/>');
-		$header.text( this.options.title );
+		if(this.options.title == null){
+			$header.html("&nbsp;");
+		} else {
+			$header.text( this.options.title);
+		}
 		$container.append($header);
 
 		// Generate of list
@@ -79,7 +83,8 @@
 			if( this.options.onClick != null ) { // Event: onClick
 				$li.click(function(){
 					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
-					var item_key = $(this).data('hoverDropdownBoxBoxItemKey');
+					var item_key = $(this).data('hoverDropdownBoxBoxItemKey')
+					var item_obj = hoverDropdownBoxs[id].items[item_key];
 					// options.onClick( item_key, item_object, dom_object )
 					(hoverDropdownBoxs[id].options.onClick)(item_key, item_obj, this);
 				});
@@ -138,7 +143,7 @@
 			// Label
 			var $label = jQuery('<span/>')
 			$label.addClass('label');
-			$label.text( this.options.footer.title );
+			$label.text( this.options.footer.label );
 			$li.append($label);
 
 			// Item container object
@@ -195,7 +200,7 @@
 								$dom.unbind('mouseout');
 								$dom.hide();
 								hoverDropdownBoxs[id].isVisible = false;
-							}, 1000);
+							}, 500);
 							$dom.data('timeout', t);
 						} else {
 							if($dom.data('timeout') != null){
@@ -220,7 +225,7 @@
 						$dom.unbind('mouseout');
 						$dom.hide();
 						hoverDropdownBoxs[id].isVisible = false;
-					}, 1000);
+					}, 500);
 					$parentDOM.data('timeout', t);
 				} else {
 					if($dom.data('timeout') != null){
@@ -268,7 +273,7 @@
 			var $check = jQuery('<input/>');
 			$check.attr('type', 'checkbox');
 			$check.addClass('checkbox');
-			if(item_options.selected != null && item_options.selected){
+			if(item_options.inputSelected != null && item_options.inputSelected){
 				$check.prop('checked', true);
 			}
 			this.dom.append($check);

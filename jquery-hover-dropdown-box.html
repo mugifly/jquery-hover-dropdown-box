@@ -1,32 +1,41 @@
 <html>
 <head>
-	<title>jquery-hover-dropdown-box</title>
+	<title>Examples : jquery-hover-dropdown-box</title>
+
 	<!-- Include libraries -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="jquery-hover-dropdown-box.js"></script>
 	<link rel="stylesheet" href="jquery-hover-dropdown-box.css" />
 	<!---->
+
 	<style type="text/css">
-		body { background-color:	#fefefe; }
-		.btn {
-			display:				inline;
-			padding: 			10px 20px 10px 20px;
-			background-color:	#00c10d;
-			color:				white;
-			font-weight:			bolder;
-			cursor:				pointer;
-		}
-		footer{font-size:small;position:fixed;right:5px;bottom:5px;}
+		body { background-color:	#fefefe; color: #303030;
+			font-family: mplus-1p, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+		a:link, a:visited { color: #71a7c2; }
+		hr {  margin: 40px 0px 40px 0px; border: solid 1px #eeeeee; }
+		article { margin-left: 5%; margin-bottom: 100px; }
+		h3 { margin-top: 40px; }
+		section { margin-left: 2%; }
+		pre { padding: 15px 10px 15px 10px; background-color: #dfdfdf; }
+		footer { font-size:small;position:fixed;right:5px;bottom:5px; }
+		.btn { display: relative; padding: 10px 20px 10px 20px; background-color: #00c10d; color: white; 
+			font-weight: bolder; cursor: pointer; }
 	</style>
 </head>
 <body>
-	<h1>jquery-hover-dropdown-box</h1>
+	<header>
+		<h2>Examples : jquery-hover-dropdown-box</h2>
+		<a href="http://mugifly.github.io/jquery-hover-dropdown-box" style="font-size: small;">http://mugifly.github.io/jquery-hover-dropdown-box</a>
+	</header>
 
-	<h2>Example - Inline</h2>
-	<div id="example_inline_box">
+	<article>
 
-	</div>
-	<script type="text/javascript">
+		<h2>Example - Inline</h2>
+
+		<div id="example_inline_box"></div>
+
+		<!-- Example code (Inline) -->
+		<script type="text/javascript">
 		$(function(){
 			$('#example_inline_box').hoverDropdownBox({
 				title: 'Follow',
@@ -34,31 +43,31 @@
 					"Item A": {
 						color: "#e74c3c",
 						inputType: "text",
-						selected: true
+						inputSelected: true
 					},
 					"Item B": {
 						color: "#f1c40f", 
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 					"Item C": {
 						color: "#2ecc71",
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 					"Item D": {
 						color: "#3498db",
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 					"Item E": {
 						color: "#7f8c8d",
 						inputType: "checkbox",
-						selected: true
+						inputSelected: true
 					}
 				},
 				footer: {
-					title: "+ New Item",
+					label: "+ New Item",
 					inputPlaceholder: "Input item name",
 					inputType: "text",
 				},
@@ -76,47 +85,183 @@
 							selected: true
 						});
 					}
-				},
-				isClickSelect: true
+				}
 			});
 		});
-	</script>
-	
-	<h2>Example - Follow button + box</h2>
-	<div id="example_follow_btn" class="btn">Follow</div>
-	<script type="text/javascript">
+		</script>
+		<!---->
+		
+		<h2>Example - Hover with button</h2>
+
+		<span id="example_follow_btn" class="btn">Follow</span>
+		
+		<!-- Example code (Hover) -->
+		<script type="text/javascript">
 		$(function(){
-            $('#example_follow_btn').appendHoverDropdownBox({
-            	title: 'Follow',
+			$('#example_follow_btn').appendHoverDropdownBox({
+				title: 'Follow',
 				items: {
 					"List A": {
 						color: "#e74c3c",
 						inputType: "text",
-						selected: true
+						inputSelected: true
 					},
 					"List B": {
 						color: "#f1c40f", 
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 					"List C": {
 						color: "#2ecc71",
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 					"List D": {
 						color: "#3498db",
 						inputType: "checkbox",
-						selected: false
+						inputSelected: false
 					},
 				},
 				onLabelClick: function(key, list){
 					list.checked( !list.checked() );
 					window.alert("onLabelClick: " + key + " - " + list.checked() );
 				}
-            });
+			});
 		});
-	</script>
+		</script>
+		<!---->
+
+		<hr>
+
+		<h2>METHODS</h2>
+
+		<h3>$('#foo_div').hoverDropdownBox ( options )</h3>
+
+		Append to such as div element, as inline.
+
+		<h3>$('#foo_btn').appendHoverDropdownBox ( options )</h3>
+
+		Append to such as buttons, as hover.
+
+
+		<hr>
+
+		<h2>OPTIONS</h2>
+
+		You can also use these options with aforesaid methods.
+
+		<h3>'title'</h3>
+
+		Title of header.
+
+		<h3>'items'</h3>
+
+		An items of list, as Hash (Object).<br />
+		The key of hash, will use as the item name.
+
+		<pre>
+	items : {
+		"Item A": {
+			...
+		},
+		"Item B": {
+			...
+		}
+	}</pre>
+
+		For each item, you can use the following options:
+
+		<section>
+
+			<h4>'color'</h4>
+
+			Color of an item. eg: '#ff0000' or 'red'.
+
+			<h4>'inputType'</h4>
+
+			Append a input element to an item.
+
+			<ul>
+				<li>text</li>
+				<li>checkbox</li>
+			</ul>
+
+			<h4>'inputSelected'</h4>
+
+			This option is usable when using 'inputType' option with 'checkbox'.
+
+			<h4>'inputPlaceholder'</h4>
+			This option is usable when using 'inputType' option with 'text'.
+
+		</section>
+
+		<h3>'footer'</h3>
+
+		Options for footer.
+
+		In footer, you can use the following options:
+
+		<section>
+
+			<h4> 'label' </h4>
+
+			Label of footer.
+
+			<h4>'color'</h4>
+
+			Color of an item. eg: '#ff0000' or 'red'.
+
+			<h4>'inputType'</h4>
+
+			Append a input element to an item.
+
+			<ul>
+				<li>text</li>
+				<li>checkbox</li>
+			</ul>
+
+			<h4>'inputSelected'</h4>
+
+			This option is usable when using 'inputType' option with 'checkbox'.
+
+			<h4>'inputPlaceholder'</h4>
+			This option is usable when using 'inputType' option with 'text'.
+
+		</section>
+
+		<h3> 'onClick' - function (  key, item, dom )</h3>
+		<p>Event handler for when an item (with label and others (eg: checkbox)) has clicked.</p>
+		<p>
+			Example of use:
+			<pre>
+	onClick: function( key, item, dom ){
+		window.alert("onClick: " + key );
+	}</pre>
+		</p>
+		<h3> 'onLabelClick' - function ( key, item )</h3>
+
+		<p>Event handler for when the label of an item has clicked.</p>
+		<p>Example of use:
+			<pre>
+	onLabelClick: function(key, item){
+		// When the label of item has clicked, switch checked state of a checkbox.
+		list.checked( !list.checked() );
+		window.alert("onLabelClick: " + key + " - " + list.checked() );
+	}</pre>
+		</p>
+
+		<h3> 'onTextInput' - function ( input_value, key, item, dom  )</h3>
+
+		<p>Event handler for when the text-input of an item has input completed.</p>
+		<p>Example of use:
+			<pre>
+	onTextInput: function(input_value, key, item, dom){
+		window.alert("onTextInput: + key + " = " + input_value);
+	}</pre>
+		</p>
+
+	</article>
+
 	<footer>
 		<a href="https://github.com/mugifly/jquery-hover-dropdown-box/">jquery-hover-dropdown-box (jquery-hover-dropdown-box.js)</a><br>
 		 - Your feedback is highly appreciated :) 
