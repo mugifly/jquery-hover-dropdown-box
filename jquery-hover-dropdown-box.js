@@ -1,5 +1,5 @@
 /**
- * jquery-hover-dropdown-box	- v1.0.0 (alpha)
+ * jquery-hover-dropdown-box	- v1.1.0 (alpha)
  * (c) Masanori Ohgita - 2013.
  * https://github.com/mugifly/jquery-hover-dropdown-box/
  * License: MIT
@@ -207,7 +207,7 @@
 				}
 
 				// Show and adjust with parent element
-				console.log('mousehover on trigger');
+				//console.log('mousehover on trigger');
 				
 				$dom.show();
 				hoverDropdownBoxs[id].isVisible = true;
@@ -230,13 +230,13 @@
 				
 				// Bind mouse-out event
 				var t = window.setTimeout(function(){
-					console.log("Bind: mouseout from Dropdown");
+					//console.log("Bind: mouseout from Dropdown");
 					$dom.bind('mouseout', function(evt){
 						console.log("mouseout from Dropdown");
 						if( hoverDropdownBoxs[id].isOnHoverMouse( evt ) ){ // If mouse is hover on trigger and dropdown
 							// Cancel
 							if($dom.data('timeout') != null){
-								console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
+								//console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
 								window.clearTimeout( $dom.data('timeout') );
 							}
 							return;
@@ -244,7 +244,7 @@
 						// Hide
 						$dom.addClass('hover_dropdown_box_hide');
 						var t = window.setTimeout(function(){
-							console.log("unbined mouseout from Dropdown -> hide");
+							//console.log("unbined mouseout from Dropdown -> hide");
 							$dom.unbind('mouseout');
 							$dom.hide();
 							hoverDropdownBoxs[id].isVisible = false;
@@ -253,7 +253,7 @@
 					});
 				}, 200);
 				$dom.data('timeout', t);
-				console.log("Timer start: mouseout from Dropdown");
+				//console.log("Timer start: mouseout from Dropdown");
 			},
 			function(evt){ // Mouse-out from parent
 				var id = $(this).data('hoverDropdownBoxId');
@@ -264,7 +264,7 @@
 				if( hoverDropdownBoxs[id].isOnHoverMouse( evt ) ){ // If mouse is hover on trigger and dropdown
 					// Cancel
 					if($triggerDOM.data('timeout') != null){
-						console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
+						//console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
 						window.clearTimeout( $triggerDOM.data('timeout') );
 					}
 					return;
@@ -273,7 +273,7 @@
 				// Hide
 				$dom.addClass('hover_dropdown_box_hide');
 				var t = window.setTimeout(function(){
-					console.log("  mouseout from trigger -> hide");
+					//console.log("  mouseout from trigger -> hide");
 					$dom.unbind('mouseout');
 					$dom.hide();
 					hoverDropdownBoxs[id].isVisible = false;
@@ -309,10 +309,10 @@
 			&& ( evt.pageX < $triggerDOM.offset().left || $triggerDOM.offset().left + $triggerDOM.get(0).offsetWidth < evt.pageX ||
 			evt.pageY < $triggerDOM.offset().top || $triggerDOM.offset().top + $triggerDOM.get(0).offsetHeight < evt.pageY)
 		){
-			console.log("Not mouse hover.")
+			//console.log("Not mouse hover.")
 			return false;
 		}
-		console.log("Mouse hover.")
+		//console.log("Mouse hover.")
 		return true;
 	};
 

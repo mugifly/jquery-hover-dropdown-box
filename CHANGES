@@ -3,6 +3,7 @@ https://github.com/mugifly/jquery-hover-dropdown-box/
 
 1.1.0  2013-09-06
    - [Fix] Separate the parent dom and the trigger dom, on Hover mode.
+   - [Fix] Support for stylesheet in various existing environment.
 
 1.0.0  2013-08-23
    - Initial release (alpha)
