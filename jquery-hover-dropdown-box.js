@@ -37,7 +37,10 @@
 		hoverDropdownBoxs.push(this);
 
 		this.options.hoverDropdownBox_id = this.id;
-		this.options.getHoverDropdownBox = function(){
+		this.options.dropdownBox = function(){
+			return hoverDropdownBoxs[ this.hoverDropdownBox_id ];
+		};
+		this.options.getHoverDropdownBox = function(){ // TODO! Deprecated
 			return hoverDropdownBoxs[ this.hoverDropdownBox_id ];
 		};
 
@@ -325,6 +328,7 @@
 		this.dom = dom_object;
 		this.labelObject = $(dom_object.children('.hover_dropdown_box_item_label'))[0];
 		this.innerInputObject = null; // Input form or checkbox
+		this.innerInputObjectType = null; // Input form or checkbox
 		this.innerInputActionRightObject = null; // Enter link
 		this.innerInputActionLeftObject = null; // Cancel link
 	};
@@ -366,6 +370,7 @@
 
 			this.dom.append($check);
 			this.innerInputObject = $check;
+			this.innerInputObjectType = 'checkbox';
 		}
 
 		// Textbox
@@ -421,7 +426,11 @@
 					}
 					if(hoverDropdownBoxs[id].options.onTextInput != null){
 						// options.onTextInput(value, item_key, item_object, dom_object)
-						(hoverDropdownBoxs[id].options.onTextInput)( $text.val(), item_key, item_obj, this );
+						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), this );
+					}
+					if(hoverDropdownBoxs[id].options.onInputText != null){
+						// options.onInputText(value, item_key, item_object, dom_object)
+						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), this );
 					}
 					// Hide the textbox
 					$(item_obj.innerInputObject).hide();
@@ -429,6 +438,19 @@
 					$(item_obj.innerInputActionRightObject).hide();
 					// Show the label
 					$(item_obj.labelObject).show();
+
+					// Fire the events
+					if(hoverDropdownBoxs[id].options.onChange != null){
+						window.setTimeout( function(){
+							(hoverDropdownBoxs[id].options.onChange)( $text.val(), this.key, this, this.dom );
+						}, 10);
+					}
+					// Fire the event of OnChange
+					if(this.parentObject.options.onChange != null){
+						(function(func, item_key, item_obj, value){
+							window.setTimeout( function(){ (func)( item_key, item_obj, value ); }, 10);
+						})(this.parentObject.options.onChange, this.key, this, $(this.innerInputObject[0]).data('isChecked'));
+					}
 					return false;
 				} else if(evt.keyCode == 27){ // ESC
 					// Cancel
@@ -441,6 +463,7 @@
 
 			this.dom.append($text);
 			this.innerInputObject = $text;
+			this.innerInputObjectType = 'text';
 
 			// Action link (right) - OK
 			this.generateInputActionObject_(item_options, '&gt;', 'right',
@@ -456,7 +479,7 @@
 					var $text = item_obj.innerInputObject;
 					if(hoverDropdownBoxs[id].options.onTextInput != null){
 						// options.onTextInput(value, item_key, item_object, dom_object)
-						(hoverDropdownBoxs[id].options.onTextInput)( $text.val(), item_key, item_obj, $text );
+						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), $text );
 					}
 					// Hide the textbox
 					$(item_obj.innerInputObject).hide();
@@ -509,7 +532,13 @@
 	};
 
 	// Getter of input object
-	hoverDropdownBoxItem.prototype.getInputObject = function( ){
+	hoverDropdownBoxItem.prototype.inputElement = function( ){
+		if(this.innerInputObject){
+			return this.innerInputObject;
+		}
+		return null;
+	};
+	hoverDropdownBoxItem.prototype.getInputObject = function( ){// TODO! Deprecated
 		if(this.innerInputObject){
 			return this.innerInputObject;
 		}
@@ -518,7 +547,7 @@
 
 	// Getter and Setter for isChecked of input object
 	hoverDropdownBoxItem.prototype.checked = function( value ){
-		if(this.innerInputObject){
+		if(this.innerInputObject && this.innerInputObjectType == 'checkbox'){
 			if(value != null && value == true){
 				this.parentObject.options.items[this.key].inputChecked = true;
 				$(this.innerInputObject[0]).data('isChecked', true);
@@ -531,7 +560,15 @@
 				$(this.innerInputObject[0]).removeClass('checkbox_checked');
 			}
 
-			//return $(this.innerInputObject[0]).is(':checked');
+			if(value != null){
+				// Fire the event of OnChange
+				if(this.parentObject.options.onChange != null){
+					(function(func, item_key, item_obj, value){
+						window.setTimeout( function(){ (func)( item_key, item_obj, value ); }, 10);
+					})(this.parentObject.options.onChange, this.key, this, $(this.innerInputObject[0]).data('isChecked'));
+				}
+			}
+
 			return $(this.innerInputObject[0]).data('isChecked');
 		}
 	};
@@ -539,11 +576,16 @@
 	// Getter and Setter for value of input object
 	hoverDropdownBoxItem.prototype.value = function( value ){
 		if(this.innerInputObject){
-			if(value != null){
-				$(this.innerInputObject[0]).val(value);
+			if(this.innerInputObjectType == 'checkbox'){
+				return this.checked(value);
+			} else if(this.innerInputObjectType == 'text'){
+				if(value != null){
+					$(this.innerInputObject[0]).val(value);
+				}
+				return $(this.innerInputObject[0]).val();
 			}
-			return $(this.innerInputObject[0]).val();
 		}
+		return undefined;
 	};
 
 	/**

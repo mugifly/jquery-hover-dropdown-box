@@ -1,12 +1,19 @@
 Version history for jquery-hover-dropdown-box
 https://github.com/mugifly/jquery-hover-dropdown-box/
 
-1.1.0  2013-09-06
+1.2.0  2013-09-06 (alpha)
+   - [Add] 'onChange' event.
+   - [Add] 'onInputText' event (It are different to parameters from 'onTextInput' event).
+   - [Change] The 'onTextinput' event is deprecated.
+   - [Change] Renamed the 'getInputObject' method of the item object => 'inputElement'.
+     ('getInputObject' method is deprecated.)
+
+1.1.0  2013-09-06 (alpha)
    - [Fix] Separate the parent dom and the trigger dom, on Hover mode.
    - [Fix] Support for stylesheet in various existing environment.
    - [Fix] Malfuction about the default value of a checkbox
    - [Change] Renamed the 'inputSelected' option of an items => 'inputChecked'
      ('inputSelected' option is deprecated.)
 
-1.0.0  2013-08-23
+1.0.0  2013-08-23 (alpha)
    - Initial release (alpha)
