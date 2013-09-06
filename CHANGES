@@ -4,6 +4,7 @@ https://github.com/mugifly/jquery-hover-dropdown-box/
 1.2.0  2013-09-06 (alpha)
    - [Add] 'onChange' event.
    - [Add] 'onInputText' event (It are different to parameters from 'onTextInput' event).
+   - [Fix] Some fixes of a code and a document.
    - [Change] The 'onTextinput' event is deprecated.
    - [Change] Renamed the 'getInputObject' method of the item object => 'inputElement'.
      ('getInputObject' method is deprecated.)
