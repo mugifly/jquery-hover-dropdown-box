@@ -1,5 +1,5 @@
 /**
- * jquery-hover-dropdown-box	- v1.0.0 (alpha)
+ * jquery-hover-dropdown-box	- v1.1.0 (alpha)
  * (c) Masanori Ohgita - 2013.
  * https://github.com/mugifly/jquery-hover-dropdown-box/
  * License: MIT
@@ -16,7 +16,14 @@
 		Container Object
 	**/
 	var hoverDropdownBox = function( obj, options ){
-		this.parentDOM = obj; // parentObject
+		if(options.isInline){ // Inline mode
+			this.parentDOM = obj;
+			this.triggerDOM = obj;
+		} else { // Hover mode
+			this.parentDOM = $('body'); // parent object
+			this.triggerDOM = obj; // Hover triger object (such as button) for Hover mode
+		}
+
 		this.options = options;
 
 		this.dom = null;
@@ -34,8 +41,8 @@
 			return hoverDropdownBoxs[ this.hoverDropdownBox_id ];
 		};
 
-		// Append to parent dom
-		if(!this.options.isInline){ // Hover
+		if(!this.options.isInline){ // Hover mode
+			// Append to parent DOM and set event-handler to triger DOM
 			this.appendToParent();
 		}
 
@@ -47,14 +54,14 @@
 		var $container;
 		if( opt_container == null ){
 			$container = jQuery('<div/>');
-			$container.addClass('popup_dropdown_box');
+			$container.addClass('hover_dropdown_box');
 			$container.data('hoverDropdownBoxId', this.id);
 			this.dom = $container;
 			this.parentDOM.append($container);
 			if(this.options.isInline){
-				$container.addClass('popup_dropdown_box_inline');
+				$container.addClass('hover_dropdown_box_inline');
 			} else {
-				$container.addClass('popup_dropdown_box_hover');
+				$container.addClass('hover_dropdown_box_hover');
 			}
 		} else {
 			$container = opt_container;
@@ -76,13 +83,13 @@
 		for ( key in this.options.items ){
 			// Item
 			var $li = jQuery('<li/>');
-			$li.addClass('list_item');
+			$li.addClass('hover_dropdown_box_item');
 			$li.data('hoverDropdownBoxBoxItemKey', key);
 			$list.append($li);
 
 			if( this.options.onClick != null ) { // Event: onClick
 				$li.click(function(){
-					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
+					var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
 					var item_key = $(this).data('hoverDropdownBoxBoxItemKey')
 					var item_obj = hoverDropdownBoxs[id].items[item_key];
 					if( hoverDropdownBoxs[id].options.items[item_key].inputType != null
@@ -99,7 +106,7 @@
 
 			if( this.options.onLabelClick != null ) { // Event: onLabelClick
 				$li.click(function(evt){
-					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
+					var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
 					var item_key = $(this).data('hoverDropdownBoxBoxItemKey');
 					var item_obj = hoverDropdownBoxs[id].items[item_key];
 					// Check event source
@@ -127,7 +134,7 @@
 			if( this.options.items[key].color != null ){
 				var color = this.options.items[key].color;
 				var $color_tag = jQuery('<div/>');
-				$color_tag.addClass('color_tag');
+				$color_tag.addClass('hover_dropdown_box_item_color_tag');
 				$color_tag.html('&nbsp;');
 				$color_tag.css('background-color', color);
 				$li.append($color_tag);
@@ -135,7 +142,7 @@
 
 			// Label
 			var $label = jQuery('<span/>')
-			$label.addClass('label');
+			$label.addClass('hover_dropdown_box_item_label');
 			$label.text(key);
 			$li.append($label);
 
@@ -148,18 +155,18 @@
 
 		// Footer
 		if(this.options.footer != null){
-			$container.addClass('popup_dropdown_box_with_footer');
+			$container.addClass('hover_dropdown_box_with_footer');
 
 			// Item
 			var $li = jQuery('<div/>');
-			$li.addClass('list_item');
-			$li.addClass('footer');
+			$li.addClass('hover_dropdown_box_item');
+			$li.addClass('hover_dropdown_box_footer');
 			$li.data('hoverDropdownBoxBoxItemKey', 'footer');
 			$list.append($li);
 
 			// Label
 			var $label = jQuery('<span/>')
-			$label.addClass('label');
+			$label.addClass('hover_dropdown_box_item_label');
 			$label.text( this.options.footer.label );
 			$li.append($label);
 
@@ -181,96 +188,102 @@
 
 	};
 
-	// Append to parent dom
+	// Append to parent dom (for Hover mode)
 	hoverDropdownBox.prototype.appendToParent = function( ){
-		$(this.parentDOM).data('hoverDropdownBoxId', this.id);
-		$(this.parentDOM).hover(
+		$(this.triggerDOM).data('hoverDropdownBoxId', this.id);
+		$(this.triggerDOM).hover(
 			function(evt){ // Mouse-hover on parent
 				var id = $(this).data('hoverDropdownBoxId');
 				var $dom = hoverDropdownBoxs[id].dom;
 				var $parentDOM = hoverDropdownBoxs[id].parentDOM;
+				var $triggerDOM = hoverDropdownBoxs[id].triggerDOM;
 
 				$dom.unbind('mouseout');
 				if($dom.data('timeout') != null){
 					window.clearTimeout( $dom.data('timeout') );
 				}
-				if($parentDOM.data('timeout') != null){
-					window.clearTimeout( $parentDOM.data('timeout') );
+				if($triggerDOM.data('timeout') != null){
+					window.clearTimeout( $triggerDOM.data('timeout') );
 				}
 
 				// Show and adjust with parent element
+				//console.log('mousehover on trigger');
 				
 				$dom.show();
 				hoverDropdownBoxs[id].isVisible = true;
 				var top_margin = 30;
-				if(parseInt($(window).height()) <=  parseInt($parentDOM.offset().top - $(window).scrollTop()) + top_margin + parseInt($dom.height()) ){
+				if(parseInt($(window).height()) <=  parseInt($triggerDOM.offset().top - $(window).scrollTop()) + top_margin + parseInt($dom.height()) ){
 					// Display to top of parent
-					$dom.css('top', $parentDOM.offset().top + $parentDOM.height() - $dom.height() );
+					$dom.css('top', $triggerDOM.offset().top + $triggerDOM.height() - $dom.height() );
 				} else {
 					// Display to bottom of parent
-					$dom.css('top', $parentDOM.offset().top + top_margin );
+					$dom.css('top', $triggerDOM.offset().top + top_margin );
 				}
-				if(parseInt($(window).width()) < parseInt($parentDOM.offset().left) + parseInt($dom.width()) ){
+				if(parseInt($(window).width()) < parseInt($triggerDOM.offset().left) + parseInt($dom.width()) ){
 					// Display to left of parent
-					$dom.css('left', $parentDOM.offset().left - ($dom.width() / 2) );
+					$dom.css('left', $triggerDOM.offset().left - ($dom.width() / 2) );
 				} else {
 					// Display to right of parent
-					$dom.css('left', $parentDOM.offset().left );
+					$dom.css('left', $triggerDOM.offset().left );
 				}
-				$dom.removeClass('popup_dropdown_box_hide');
+				$dom.removeClass('hover_dropdown_box_hide');
 				
 				// Bind mouse-out event
 				var t = window.setTimeout(function(){
+					//console.log("Bind: mouseout from Dropdown");
 					$dom.bind('mouseout', function(evt){
 						console.log("mouseout from Dropdown");
-						if( (evt.pageX < $dom.offset().left || $dom.offset().left + $dom.width() < evt.pageX ||
-							evt.pageY < $dom.offset().top || $dom.offset().top + $dom.height() < evt.pageY)
-							&& ( evt.pageX < $parentDOM.offset().left || $parentDOM.offset().left + $parentDOM.width() < evt.pageX ||
-						evt.pageY < $parentDOM.offset().top || $parentDOM.offset().top + $parentDOM.height() < evt.pageY )){
-
-							$dom.addClass('popup_dropdown_box_hide');
-							var t = window.setTimeout(function(){
-								console.log("mouseout from Dropdown -> hide");
-								$dom.unbind('mouseout');
-								$dom.hide();
-								hoverDropdownBoxs[id].isVisible = false;
-							}, 500);
-							$dom.data('timeout', t);
-						} else {
+						if( hoverDropdownBoxs[id].isOnHoverMouse( evt ) ){ // If mouse is hover on trigger and dropdown
+							// Cancel
 							if($dom.data('timeout') != null){
+								//console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
 								window.clearTimeout( $dom.data('timeout') );
 							}
+							return;
 						}
+						// Hide
+						$dom.addClass('hover_dropdown_box_hide');
+						var t = window.setTimeout(function(){
+							//console.log("unbined mouseout from Dropdown -> hide");
+							$dom.unbind('mouseout');
+							$dom.hide();
+							hoverDropdownBoxs[id].isVisible = false;
+						}, 300);
+						$dom.data('timeout', t);
 					});
-				}, 500);
+				}, 200);
 				$dom.data('timeout', t);
+				//console.log("Timer start: mouseout from Dropdown");
 			},
 			function(evt){ // Mouse-out from parent
 				var id = $(this).data('hoverDropdownBoxId');
 				var $dom = hoverDropdownBoxs[id].dom;
 				var $parentDOM = hoverDropdownBoxs[id].parentDOM;
-				if( evt.pageX < $dom.offset().left || $dom.offset().left + $dom.width() < evt.pageX ||
-					evt.pageY < $dom.offset().top || $dom.offset().top + $dom.height() < evt.pageY ){
-					console.log(" On mouse-out from parent && not on dom ");
-					// Hide
-					$dom.addClass('popup_dropdown_box_hide');
-					var t = window.setTimeout(function(){
-						console.log("mouseout from parent -> hide");
-						$dom.unbind('mouseout');
-						$dom.hide();
-						hoverDropdownBoxs[id].isVisible = false;
-					}, 500);
-					$parentDOM.data('timeout', t);
-				} else {
-					if($dom.data('timeout') != null){
-						window.clearTimeout( $dom.data('timeout') );
+				var $triggerDOM = hoverDropdownBoxs[id].triggerDOM;
+
+				if( hoverDropdownBoxs[id].isOnHoverMouse( evt ) ){ // If mouse is hover on trigger and dropdown
+					// Cancel
+					if($triggerDOM.data('timeout') != null){
+						//console.log("  Cancel timer: unbined mouseout from Dropdown -> hide");
+						window.clearTimeout( $triggerDOM.data('timeout') );
 					}
+					return;
 				}
+
+				// Hide
+				$dom.addClass('hover_dropdown_box_hide');
+				var t = window.setTimeout(function(){
+					//console.log("  mouseout from trigger -> hide");
+					$dom.unbind('mouseout');
+					$dom.hide();
+					hoverDropdownBoxs[id].isVisible = false;
+				}, 300);
+				$triggerDOM.data('timeout', t);
 			}
 		);
 		
 		// Hide now
-		$(this.dom).addClass('popup_dropdown_box_hide');
+		$(this.dom).addClass('hover_dropdown_box_hide');
 		$(this.dom).hide();
 		this.isVisible = false;
 	};
@@ -287,6 +300,22 @@
 		// TODO!
 	};
 
+	// Check hover mouse on Dropdown dom & trigger dom
+	hoverDropdownBox.prototype.isOnHoverMouse = function( evt ){
+		var $dom = $(this.dom);
+		var $triggerDOM = $(this.triggerDOM);
+		if(( evt.pageX < $dom.offset().left || $dom.offset().left + $dom.width() < evt.pageX ||
+			evt.pageY < $dom.offset().top || $dom.offset().top + $dom.height() < evt.pageY )
+			&& ( evt.pageX < $triggerDOM.offset().left || $triggerDOM.offset().left + $triggerDOM.get(0).offsetWidth < evt.pageX ||
+			evt.pageY < $triggerDOM.offset().top || $triggerDOM.offset().top + $triggerDOM.get(0).offsetHeight < evt.pageY)
+		){
+			//console.log("Not mouse hover.")
+			return false;
+		}
+		//console.log("Mouse hover.")
+		return true;
+	};
+
 	/**
 		Item Object
 	**/
@@ -294,7 +323,7 @@
 		this.parentObject = hoverDropdownBox;
 		this.key = item_key; // key or 'footer'
 		this.dom = dom_object;
-		this.labelObject = $(dom_object.children('.label'))[0];
+		this.labelObject = $(dom_object.children('.hover_dropdown_box_item_label'))[0];
 		this.innerInputObject = null; // Input form or checkbox
 		this.innerInputActionRightObject = null; // Enter link
 		this.innerInputActionLeftObject = null; // Cancel link
@@ -307,16 +336,20 @@
 		// Checkbox (Checkbox like div)
 		if( input_type == "checkbox" ){
 			var $check = jQuery('<div/>');
-			$check.addClass('checkbox');
-			if(item_options.inputSelected != null && item_options.inputSelected){
+			$check.addClass('hover_dropdown_box_item_checkbox');
+			if(item_options.inputSelected != null && item_options.inputSelected == true){ // Deprecated
 				$check.data('isChecked', true);
+				$check.addClass('checkbox_checked');
+			} else if(item_options.inputChecked != null && item_options.inputChecked == true){
+				$check.data('isChecked', true);
+				$check.addClass('checkbox_checked');
 			} else {
 				$check.data('isChecked', false);
 			}
 
 			$check.click(function(evt){
-				var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
-				var item_key =  $(this).parents('.list_item').data('hoverDropdownBoxBoxItemKey');
+				var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
+				var item_key =  $(this).parents('.hover_dropdown_box_item').data('hoverDropdownBoxBoxItemKey');
 				var item_obj;
 				if(item_key == 'footer'){
 					item_obj = hoverDropdownBoxs[id].footerItem;
@@ -339,13 +372,13 @@
 		if( input_type == "text" ){
 			var $text = jQuery('<input/>');
 			$text.attr('type', 'text');
-			$text.addClass('textbox');
+			$text.addClass('hover_dropdown_box_item_textbox');
 			if(item_options.inputPlaceholder != null){
 				$text.attr('placeholder', item_options.inputPlaceholder);
 			}
 			$text.hide();
 			this.dom.click( function( evt ){
-				var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
+				var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
 				var item_key = $(this).data('hoverDropdownBoxBoxItemKey');
 				var item_obj;
 				if(item_key == 'footer'){
@@ -378,8 +411,8 @@
 			$text.keypress( function(evt){
 				if(evt.which == 13){ // Enter
 					var $text = $(evt.target);
-					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
-					var item_key = $($(this).parents('.list_item')[0]).data('hoverDropdownBoxBoxItemKey');
+					var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
+					var item_key = $($(this).parents('.hover_dropdown_box_item')[0]).data('hoverDropdownBoxBoxItemKey');
 					var item_obj;
 					if(item_key == 'footer'){
 						item_obj = hoverDropdownBoxs[id].footerItem;
@@ -412,8 +445,8 @@
 			// Action link (right) - OK
 			this.generateInputActionObject_(item_options, '&gt;', 'right',
 				function(evt) {
-					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
-					var item_key = $($(this).parents('.list_item')[0]).data('hoverDropdownBoxBoxItemKey');
+					var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
+					var item_key = $($(this).parents('.hover_dropdown_box_item')[0]).data('hoverDropdownBoxBoxItemKey');
 					var item_obj;
 					if(item_key == 'footer'){
 						item_obj = hoverDropdownBoxs[id].footerItem;
@@ -437,8 +470,8 @@
 			// Action link (left) - Cancel
 			this.generateInputActionObject_(item_options, 'X', 'left',
 				function(evt) {
-					var id = $($(this).parents('.popup_dropdown_box')[0]).data('hoverDropdownBoxId');
-					var item_key = $($(this).parents('.list_item')[0]).data('hoverDropdownBoxBoxItemKey');
+					var id = $($(this).parents('.hover_dropdown_box')[0]).data('hoverDropdownBoxId');
+					var item_key = $($(this).parents('.hover_dropdown_box_item')[0]).data('hoverDropdownBoxBoxItemKey');
 					var item_obj;
 					if(item_key == 'footer'){
 						item_obj = hoverDropdownBoxs[id].footerItem;
@@ -461,7 +494,7 @@
 		var $action = $('<span/>');
 		$action.hide();
 
-		$action.addClass('input_action');
+		$action.addClass('hover_dropdown_box_item_input_action');
 		$action.html(label);
 		$action.click( on_click );
 
@@ -487,12 +520,12 @@
 	hoverDropdownBoxItem.prototype.checked = function( value ){
 		if(this.innerInputObject){
 			if(value != null && value == true){
-				this.parentObject.options.items[this.key].inputSelected = true;
+				this.parentObject.options.items[this.key].inputChecked = true;
 				$(this.innerInputObject[0]).data('isChecked', true);
 				// Drawing custom checkbox
 				$(this.innerInputObject[0]).addClass('checkbox_checked');
 			} else if(value != null && value == false){
-				this.parentObject.options.items[this.key].inputSelected = false;
+				this.parentObject.options.items[this.key].inputChecked = false;
 				$(this.innerInputObject[0]).data('isChecked', false);
 				// Drawing custom checkbox
 				$(this.innerInputObject[0]).removeClass('checkbox_checked');
@@ -516,6 +549,8 @@
 	/**
 		Definitions of jQuery plugin
 	**/
+
+	// hover-dropdown-box - Inline mode
 	$.fn.hoverDropdownBox = function(config){
 		var defaults = {
 			isInline: true
@@ -526,9 +561,10 @@
 		});
 	};
 
+	// hover-dropdown-box - Hover mode
 	$.fn.appendHoverDropdownBox = function(config){
 		var defaults = {
-			isInline:false
+			isInline:	false
 		};
 		var options = $.extend(defaults, config);
 		return this.each(function(i){
