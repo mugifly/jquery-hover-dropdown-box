@@ -337,8 +337,12 @@
 		if( input_type == "checkbox" ){
 			var $check = jQuery('<div/>');
 			$check.addClass('hover_dropdown_box_item_checkbox');
-			if(item_options.inputSelected != null && item_options.inputSelected){
+			if(item_options.inputSelected != null && item_options.inputSelected == true){ // Deprecated
 				$check.data('isChecked', true);
+				$check.addClass('checkbox_checked');
+			} else if(item_options.inputChecked != null && item_options.inputChecked == true){
+				$check.data('isChecked', true);
+				$check.addClass('checkbox_checked');
 			} else {
 				$check.data('isChecked', false);
 			}
@@ -516,12 +520,12 @@
 	hoverDropdownBoxItem.prototype.checked = function( value ){
 		if(this.innerInputObject){
 			if(value != null && value == true){
-				this.parentObject.options.items[this.key].inputSelected = true;
+				this.parentObject.options.items[this.key].inputChecked = true;
 				$(this.innerInputObject[0]).data('isChecked', true);
 				// Drawing custom checkbox
 				$(this.innerInputObject[0]).addClass('checkbox_checked');
 			} else if(value != null && value == false){
-				this.parentObject.options.items[this.key].inputSelected = false;
+				this.parentObject.options.items[this.key].inputChecked = false;
 				$(this.innerInputObject[0]).data('isChecked', false);
 				// Drawing custom checkbox
 				$(this.innerInputObject[0]).removeClass('checkbox_checked');
