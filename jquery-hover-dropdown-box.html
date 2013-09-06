@@ -16,7 +16,7 @@
 		hr {  margin: 40px 0px 40px 0px; border: solid 1px #eeeeee; }
 		article { margin-left: 5%; margin-bottom: 100px; }
 		h3 { margin-top: 40px; }
-		section { margin-left: 2%; }
+		section { margin-left: 2%; margin-bottom: 5%; }
 		pre { padding: 15px 10px 15px 10px; background-color: #dfdfdf; }
 		footer { font-size:small;position:fixed;right:5px;bottom:5px; }
 		.btn { padding: 10px 20px 10px 20px;
@@ -74,11 +74,13 @@
 					inputPlaceholder: "Input item name",
 					inputType: "text",
 				},
-				onLabelClick: function(key, list){
-					list.checked( !list.checked() );
-					window.alert("onLabelClick: " + key + " - " + list.checked() );
+				onLabelClick: function(key, item){
+					item.checked( !item.checked() );
 				},
-				onTextInput: function(value, key, list){
+				onChange: function(key, item, value){					
+					window.alert("onChange: " + key + " - " + value );
+				},
+				onTextInput: function(key, item, value){
 					window.alert("onTextInput: " + key + " - " + value );
 					if( key == 'footer' ) {
 						console.log(this);
@@ -130,12 +132,11 @@
 						inputChecked: false
 					},
 				},
-				onClick: function(key, item, dom){
-					window.alert("onClick: " + key + " - " + item.checked() );
+				onChange: function(key, item, value){
+					window.alert("onChange: " + key + " - " + value );
 				},
-				onLabelClick: function(key, item, dom){
+				onLabelClick: function(key, item){
 					item.checked( !item.checked() );
-					window.alert("onLabelClick: " + key + " - " + item.checked() );
 				}
 			});
 		});
@@ -144,32 +145,37 @@
 
 		<hr>
 
-		<a name="methods"><h2>METHODS</h2></a>
+		<!-- Methods -->
+		<h2><a name="methods">METHODS</a></h2>
 
 		<h3>$('#foo_div').hoverDropdownBox ( [options] )</h3>
-
-		Append into such as div element, as inline box.
+		<p>
+			Append into such as div element, as inline box.
+		</p>
 
 		<h3>$('#foo_btn').appendHoverDropdownBox ( [options] )</h3>
-
-		Append into a element such as button, as hover.
+		<p>
+			Append into a element such as button, as hover.
+		</p>
 
 		<hr>
+		<!---->
 
-		<a name="options"><h2>OPTIONS</h2></a>
+		<!-- Options -->
+		<h2><a name="options">OPTIONS</a></h2>
 
-		You can also use these options with aforesaid methods.
+			You can also use these options with aforesaid methods.
 
-		<h3>'title'</h3>
+			<h3>'title'</h3>
+			<p>
+				Title of header.
+			</p>
 
-		Title of header.
-
-		<h3>'items'</h3>
-
-		An items of list, as Hash (Object).<br />
-		The key of hash, will use as the item name.
-
-		<pre>
+			<h3>'items'</h3>
+			<p>
+				An items of list, as Hash (Object).<br />
+				The key of hash, will use as the item name.
+				<pre>
 	items : {
 		"Item A": {
 			...
@@ -179,112 +185,142 @@
 		}
 	}</pre>
 
-		For each item, you can use the following options:
+				For each item, you can use the following options:
+				<section>
+					<a name="options_items_options"><h3>OPTIONS in each items</u></h3></a>
 
-		<section><a name="options_items_options">&nbsp;</a>
+					<h4>'color'</h4>
 
-			<h4>'color'</h4>
+					Color of an item. eg: '#ff0000' or 'red'.
 
-			Color of an item. eg: '#ff0000' or 'red'.
+					<h4>'inputType'</h4>
 
-			<h4>'inputType'</h4>
+					Append a input-element to an item.
 
-			Append a input element to an item.
+					<ul>
+						<li>null (default)</li>
+						<li>'text' (text-input)</li>
+						<li>'checkbox'</li>
+					</ul>
 
-			<ul>
-				<li>null (default)</li>
-				<li>text</li>
-				<li>checkbox</li>
-			</ul>
+					<h4>'inputChecked'</h4>
 
-			<h4>'inputChecked'</h4>
+					This option is usable when using 'inputType' option with 'checkbox'. value: true / false.
 
-			This option is usable when using 'inputType' option with 'checkbox'. value: true / false.
+					<h4>'inputPlaceholder'</h4>
 
-			<h4>'inputPlaceholder'</h4>
+					This option is usable when using 'inputType' option with 'text'. eg: "Input a text".
 
-			This option is usable when using 'inputType' option with 'text'. eg: "Input a text".
+				</section>
+			</p>
 
-		</section>
+			<h3>'footer'</h3>
+			<p>
+				Options for footer.<br/>
+				In footer, you can use the following options:
 
-		<h3>'footer'</h3>
+				<section>
+					<h3>OPTIONS in footer</h3>
 
-		Options for footer.
+					<h4> 'label' </h4>
+					<p>Label of footer.</p>
 
-		In footer, you can use the following options:
+					<h4> Other methods</h4>
+					<p>You can use a options as same as <a href="#options_items_options">OPTIONS in each items</a> (such as: 'color', 'inputType', etc...).</p>
 
-		<section>
+				</section>
+			</p>
 
-			<h4> 'label' </h4>
-
-			Label of footer.
-
-			<h4> Other methods</h4>
-
-			You can use a options as same as <a href="#options_items_options">Option &gt; items &gt; Options</a> (such as: 'color', 'inputType', etc...).
-
-		</section>
-
-		<a name="methods_onclick"><h3>'onClick' - function (  key, item, dom )</h3></a>
-		<p>Event handler for when an item (with label and others (eg: checkbox)) has clicked.</p>
-		<p>
-			Example of use:
-			<pre>
-	onClick: function( key, item, dom ){
+			<h3><a name="methods_onclick">'onClick' - function (  key, item )</a></h3>
+			<p>Event handler for when an item (with label and others (eg: checkbox)) has clicked.</p>
+			<p>
+				Example of use:
+				<pre>
+	onClick: function( key, item ){
 		window.alert("onClick: " + key );
 	}</pre>
-		</p>
-		<p>
-			[Note] This 'item' parameter is an object.<br/>
-			&nbsp;Also, you can use the following methods with 'item' object: <br/>
+			</p>
+			<p>
+				[Note] This 'item' parameter is an object.<br/>
+				&nbsp;Also, you can use the following methods with <u>'item' object</u>: <br/>
 
-			<section>
+				<!--Section for Methods in item object-->
+				<section>
+					<h3>METHODS in <u>'item' object</u></h3>
 
-				<h4>item.checked ( [value] )</h4>
+					<h4>item.checked ( [value] )</h4>
+					<p>Get / Set state of the checkbox to an item. ('value' : true / false)<br/>
+					[Note] This method is usable when 'inputType' with 'checkbox' in this item.</p>
 
-				<p>Get / Set state of the checkbox to an item. ('value' : true / false)<br/>
-				[Note] This method is usable when 'inputType' with 'checkbox' in this item.</p>
+					<h4>item.value ( [value] )</h4>
+					<p>Get / Set a value of the input-element (checkbox or text-input) to an item.</p>
 
-				<h4>item.getInputObject ( [value] )</h4>
+					<h4>item.inputElement ( )</h4>
+					<p>Get a input-element from an item.</p>
 
-				<p>Get the input element from an item.</p>
+					<h4>item.dropdownBox ( )</h4>
+					<p>Get the <u>'DropdownBox' object</u>.<br/>
+					It's an object for manipulate the parent dropdown-box.<br/><br/>
+					Also, you can use the following methods with got object :
 
-				<h4>item.value ( [value] )</h4>
+						<!-- Section for methods in 'DropdownBox' object -->
+						<section>
+							<h3>METHODS in <u>'DropdownBox' object</u></h3>
 
-				<p>Get / Set value of the input element to an item.</p>
+							<h4>item.dropdownBox().addItem( key, item )</h4>
+							<p>
+								Add a new item to box.<br/>
+								You can use a options as same as <a href="#options_items_options">OPTIONS in each items</a> (such as: 'color', 'inputType', etc...).
+							</p>
 
-			</section>
-		</p>
+						</section>
+						<!---->
+					</p>
 
-		<a name="methods_onlabelclick"><h3> 'onLabelClick' - function ( key, item, dom )</h3></a>
+				</section>
+				<!---->
+			</p>
 
-		<p>Event handler for when the label of an item has clicked.</p>
-		<p>Example of use:
-			<pre>
+			<h3><a name="methods_onlabelclick"> 'onLabelClick' - function ( key, item )</a></h3>
+			<p>Event handler for when the label of an item has clicked.</p>
+			<p>Example of use:
+				<pre>
 	onLabelClick: function(key, item){
 		// When the label of item has clicked, switch checked state of a checkbox.
 		item.checked( !item.checked() ); // You can use 'checked' method with an item object.
 		window.alert("onLabelClick: " + key + " - " + item.checked() );
 	}</pre>
-		</p>
-		<p>
-			[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
-			&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
-		</p>
+			</p>
+			<p>
+				[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
+				&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
+			</p>
 
-		<a name="methods_ontextinput"><h3> 'onTextInput' - function ( input_value, key, item, dom  )</h3></a>
-
-		<p>Event handler for when the text-input of an item has input completed.</p>
-		<p>Example of use:
-			<pre>
-	onTextInput: function(input_value, key, item, dom){
-		window.alert("onTextInput: + key + " = " + input_value);
+			<h3><a name="methods_onchange"> 'onChange' - function ( key, item, value )</a></h3>
+			<p>Event handler for when the checkbox or text-input of an item has changed.</p>
+			<p>Example of use:
+				<pre>
+	onChange: function(key, item, value){
+		window.alert("onChange: " + key + " - " + value );
 	}</pre>
-		</p>
-		<p>
-			[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
-			&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
-		</p>
+			</p>
+			<p>
+				[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
+				&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
+			</p>
+
+			<h3><a name="methods_oninputtext"> 'onInputText' - function ( key, item, value )</a></h3>
+			<p>Event handler for when text-input of an item has input completed.</p>
+			<p>Example of use:
+				<pre>
+	onInputText: function(key, item, value){
+		window.alert("onInputText: + key + " = " + value);
+	}</pre>
+			</p>
+			<p>
+				[Note] This 'item' parameter is an object. Also, you can use the methods with 'item' object. <br/>
+				&nbsp;(Please see <a href="#methods_onclick">'onClick'</a> section.)
+			</p>
 
 	</article>
 
