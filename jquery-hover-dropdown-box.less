@@ -1,5 +1,5 @@
 /**
- * jquery-hover-dropdown-box	- Stylesheet
+ * jquery-hover-dropdown-box - Stylesheet
  * You can convert .less file to .css file, by using "lessc" (http://lesscss.org/).
  **/
 
@@ -29,16 +29,17 @@
 
 // --------------------
 
- .popup_dropdown_box {
+ .hover_dropdown_box {
  	position:	absolute;
  	display:		block;
  	height: 		220px;
  	width:		200px;
  	background-color: @box_color_background;
+ 	border-top:		1px solid #e0e0e0;
  	border-bottom:	1px solid #c8c8c8;
  	border-left:		1px solid #e0e0e0;
  	border-right:	1px solid #e0e0e0;
- 	font-size:		0.8em;
+ 	font-size:		13px;
  	font-weight: 	normal;
  	.box_shadow(0px, 1px, 10px, 1px, rgba(50,50,50,0.1));
  	.border_radius(2px);
@@ -47,14 +48,14 @@
 	h3 {
 		display: 			table-cell;
 		width:				inherit;
-		padding:				0.3em 0 0.3em 0;
+		padding:				4px 0 4px 0;
 		margin:				0 0 0 0;
 		background-color:	@header_color_background;
 		color:				@header_color_font;
 		text-align:			center;
 		vertical-align: 		middle;
 		font-weight:			bold;
-		font-size:			10pt;
+		font-size:			13px;
 
 		.border_top_left_radius(2px);
 		.border_top_right_radius(2px);
@@ -106,7 +107,7 @@
 	}
 
 	// List - Item
-	.list_item {
+	.hover_dropdown_box_item {
 		position:	relative;
 		width:		100%;
 		height:		30px;
@@ -117,7 +118,7 @@
 		list-style-type:		none;
 		background-color:	@list_item_color_background;
 
-		.color_tag {
+		.hover_dropdown_box_item_color_tag {
 			display:		block;
 			position:	relative;
 			float:		left;
@@ -128,7 +129,7 @@
 			.user_select(none);
 		}
 
-		.label {
+		.hover_dropdown_box_item_label {
 			display:			table-cell;
 			position:		absolute;
 			height:			1em;
@@ -139,7 +140,7 @@
 			.user_select(none);
 		}
 
-		.checkbox {
+		.hover_dropdown_box_item_checkbox {
 			display:			table-cell;
 			position:		absolute;
 			height:			24px;
@@ -172,7 +173,7 @@
 			.transform_rotate(45deg)
 		}
 
-		.textbox {
+		.hover_dropdown_box_item_textbox {
 			position:		absolute;
 			display:			table-cell;
 			height:			auto;
@@ -183,7 +184,7 @@
 			vertical-align:	middle;
 		}
 
-		.input_action {
+		.hover_dropdown_box_item_input_action {
 			display:			table-cell;
 			position:		absolute;
 			width:			1em;
@@ -195,24 +196,24 @@
 			.user_select(none);
 		}
 
-		.input_action.input_action_left {
+		.hover_dropdown_box_item_input_action.input_action_left {
 			margin-left:		0px;
 			left:			10%;
 		}
 
-		.input_action.input_action_right {
+		.hover_dropdown_box_item_input_action.input_action_right {
 			right:			5%;
 			margin-left:		5%;
 		}
 	}
 
-	.list_item:hover {
+	.hover_dropdown_box_item:hover {
 		.box_shadow(0px, 0px, 0px, 1px, rgba(150,150,150, 0.2));
 		transition: all 0.1s linear;
 	}
 
 	// Footer
-	.list_item.footer {
+	.hover_dropdown_box_item.hover_dropdown_box_footer {
 		display: block;
 		position: absolute;
 		color:	@link_color;
@@ -221,32 +222,32 @@
 		padding-bottom: 1px;
 		border-top:	1px solid @footer_color_border;
 
-		.textbox {
+		.hover_dropdown_box_item_textbox {
 			margin-top: 3px;
 		}
 
-		.input_action {
+		.hover_dropdown_box_item_input_action {
 			top: 2px;
 		}
 	}
 }
 
-.popup_dropdown_box_with_footer > ul {
+.hover_dropdown_box_with_footer > ul {
 	height:	150px !important;
 }
 
-.popup_dropdown_box.popup_dropdown_box_inline {
+.hover_dropdown_box.hover_dropdown_box_inline {
 	position:	relative !important;
 }
 
-.popup_dropdown_box.popup_dropdown_box_hover {
+.hover_dropdown_box.hover_dropdown_box_hover {
 	position:	absolute !important;
 	transition: opacity 0.3s linear;
 	z-index:		10000;
 	.opacity(1.0);
 }
 
-.popup_dropdown_box.popup_dropdown_box_hide {
+.hover_dropdown_box.hover_dropdown_box_hide {
 	.opacity(0.0) !important;
 }
 
