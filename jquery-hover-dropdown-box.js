@@ -424,14 +424,16 @@
 					} else {
 						item_obj = hoverDropdownBoxs[id].items[item_key];
 					}
-					if(hoverDropdownBoxs[id].options.onTextInput != null){
+
+					if(hoverDropdownBoxs[id].options.onInputText != null){
+						// options.onTextInput(item_key, item_object, value)
+						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val() );
+					}
+					if(hoverDropdownBoxs[id].options.onTextInput != null){ // TODO! Deprecated
 						// options.onTextInput(value, item_key, item_object, dom_object)
 						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), this );
 					}
-					if(hoverDropdownBoxs[id].options.onInputText != null){
-						// options.onInputText(value, item_key, item_object, dom_object)
-						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), this );
-					}
+
 					// Hide the textbox
 					$(item_obj.innerInputObject).hide();
 					$(item_obj.innerInputActionLeftObject).hide();
@@ -439,17 +441,11 @@
 					// Show the label
 					$(item_obj.labelObject).show();
 
-					// Fire the events
-					if(hoverDropdownBoxs[id].options.onChange != null){
-						window.setTimeout( function(){
-							(hoverDropdownBoxs[id].options.onChange)( $text.val(), this.key, this, this.dom );
-						}, 10);
-					}
 					// Fire the event of OnChange
-					if(this.parentObject.options.onChange != null){
+					if(item_obj.parentObject.options.onChange != null){
 						(function(func, item_key, item_obj, value){
 							window.setTimeout( function(){ (func)( item_key, item_obj, value ); }, 10);
-						})(this.parentObject.options.onChange, this.key, this, $(this.innerInputObject[0]).data('isChecked'));
+						})(item_obj.parentObject.options.onChange, item_key, item_obj, $text.val());
 					}
 					return false;
 				} else if(evt.keyCode == 27){ // ESC
@@ -477,10 +473,23 @@
 						item_obj = hoverDropdownBoxs[id].items[item_key];
 					}
 					var $text = item_obj.innerInputObject;
-					if(hoverDropdownBoxs[id].options.onTextInput != null){
+
+					if(hoverDropdownBoxs[id].options.onInputText != null){
+						// options.onTextInput(item_key, item_object, value)
+						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val() );
+					}
+					if(hoverDropdownBoxs[id].options.onTextInput != null){ // TODO! Deprecated
 						// options.onTextInput(value, item_key, item_object, dom_object)
 						(hoverDropdownBoxs[id].options.onTextInput)( item_key, item_obj, $text.val(), $text );
 					}
+					
+					// Fire the event of OnChange
+					if(item_obj.parentObject.options.onChange != null){
+						(function(func, item_key, item_obj, value){
+							window.setTimeout( function(){ (func)( item_key, item_obj, value ); }, 10);
+						})(item_obj.parentObject.options.onChange, item_key, item_obj, $text.val());
+					}
+
 					// Hide the textbox
 					$(item_obj.innerInputObject).hide();
 					$(item_obj.innerInputActionLeftObject).hide();
