@@ -193,6 +193,7 @@
 
 	// Append to parent dom (for Hover mode)
 	hoverDropdownBox.prototype.appendToParent = function( ){
+		var options = this.options;
 		$(this.triggerDOM).data('hoverDropdownBoxId', this.id);
 		$(this.triggerDOM).hover(
 			function(evt){ // Mouse-hover on parent
@@ -235,7 +236,7 @@
 				var t = window.setTimeout(function(){
 					//console.log("Bind: mouseout from Dropdown");
 					$dom.bind('mouseout', function(evt){
-						console.log("mouseout from Dropdown");
+						//console.log("mouseout from Dropdown");
 						if( hoverDropdownBoxs[id].isOnHoverMouse( evt ) ){ // If mouse is hover on trigger and dropdown
 							// Cancel
 							if($dom.data('timeout') != null){
@@ -250,6 +251,9 @@
 							//console.log("unbined mouseout from Dropdown -> hide");
 							$dom.unbind('mouseout');
 							$dom.hide();
+							if(options.onClose != null){
+								options.onClose.call(null);
+							}
 							hoverDropdownBoxs[id].isVisible = false;
 						}, 300);
 						$dom.data('timeout', t);
@@ -279,6 +283,9 @@
 					//console.log("  mouseout from trigger -> hide");
 					$dom.unbind('mouseout');
 					$dom.hide();
+					if(options.onClose != null){
+						options.onClose.call(null);
+					}
 					hoverDropdownBoxs[id].isVisible = false;
 				}, 300);
 				$triggerDOM.data('timeout', t);
