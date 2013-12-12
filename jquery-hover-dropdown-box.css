@@ -5,8 +5,6 @@
 .hover_dropdown_box {
   position: absolute;
   display: block;
-  height: 220px;
-  width: 200px;
   background-color: #fefefe;
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #c8c8c8;
