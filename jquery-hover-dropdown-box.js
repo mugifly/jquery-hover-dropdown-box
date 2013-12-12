@@ -70,6 +70,18 @@
 			$container = opt_container;
 			this.dom = $container;
 		}
+		
+		var _width = '200px';
+		if( null != this.options.width){
+			_width = this.options.width;
+		}
+		$container.css('width', _width);
+		
+		var _height = '220px';
+		if( null != this.options.height){
+			_height = this.options.height;
+		}
+		$container.css('height', _height);
 
 		// Generate of header
 		var $header = jQuery('<h3/>');
