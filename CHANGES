@@ -1,6 +1,10 @@
 Version history for jquery-hover-dropdown-box
 https://github.com/mugifly/jquery-hover-dropdown-box/
 
+1.3.0  2014-xx-xx
+   - [Add] onClose function option when using hover model (Thanks: needwrong).
+   - [Add] width and height option (Thanks: needwrong).
+
 1.2.0  2013-09-06 (alpha)
    - [Add] 'onChange' event.
    - [Add] 'onInputText' event (It are different to parameters from 'onTextInput' event).

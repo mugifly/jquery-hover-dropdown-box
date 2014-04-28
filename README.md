@@ -27,9 +27,18 @@ You can send requests and bug reports as [Issues on GitHub](https://github.com/m
 
 Examples: http://mugifly.github.io/jquery-hover-dropdown-box
 
+## Development
+
+The master branch is development version.
+Instead, You can get a stable version from [released tags](https://github.com/mugifly/jquery-hover-dropdown-box/releases).
+
+### Contributors
+
+[List of contributors](CONTRIBUTORS.md); Thanks.
+
 ## License and author
 
-Copyright (c) 2013 Masanori Ohgita (http://ohgita.info/). 
+Copyright (c) 2014 Masanori Ohgita (http://ohgita.info/). 
 
 This program is free software distributed under the terms of the MIT license. 
 See [LICENSE](https://github.com/mugifly/jquery-hover-dropdown-box/blob/master/LICENSE) file for details.

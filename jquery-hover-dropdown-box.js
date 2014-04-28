@@ -1,6 +1,6 @@
 /**
- * jquery-hover-dropdown-box	- v1.1.0 (alpha)
- * (c) Masanori Ohgita - 2013.
+ * jquery-hover-dropdown-box	- v1.3.0
+ * (c) Masanori Ohgita - 2014.
  * https://github.com/mugifly/jquery-hover-dropdown-box/
  * License: MIT
 **/
